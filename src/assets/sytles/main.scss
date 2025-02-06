@@ -1,5 +1,5 @@
-@import './_vars.css';
-@import './_fonts.css';
+@use "./vars" as *;
+@use './_fonts.css' as *;
 
 *,
 *::after,
@@ -12,16 +12,16 @@ a {
   text-decoration: none;
 }
 body{
-  font-family: var(--inter) !important;
-  font-weight: var(--regular);
+  font-family: $inter !important;
+  font-weight: 400;
   font-size: 16px;
   line-height: 19px;
 }
 input,
 textarea,
 button{
-  font-family: var(--inter) !important;
-  font-weight: var(--regular);
+  font-family: $inter !important;
+  font-weight: 400;
   font-size: 16px;
   line-height: 19px;
 }

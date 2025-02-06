@@ -1,4 +1,4 @@
-import './assets/sytles/main.css'
+import './assets/sytles/main.scss'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'

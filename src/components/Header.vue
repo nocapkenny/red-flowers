@@ -53,7 +53,9 @@ const $route = useRoute()
   </nav>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+@use '../assets/sytles/_vars' as *;
+
 .navbar{
   box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
   padding-top: 15px;
@@ -64,13 +66,13 @@ const $route = useRoute()
 }
 .nav-link{
   font-size: 18px !important;
-  color: var(--default);
+  color: $black;
 }
 
 .nav-link:hover{
-  color: var(--red) !important;
+  color: $red !important;
 }
 .active {
-  color: var(--red) !important;
+  color: $red !important;
 }
 </style>
