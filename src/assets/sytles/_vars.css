@@ -1,0 +1,9 @@
+:root{
+    --red: #FF6347;
+    --default: #000;
+
+    --inter: "Inter", sans-serif;
+    --regular: 400;
+    --semibold: 600;
+    --bold: 700;
+}
