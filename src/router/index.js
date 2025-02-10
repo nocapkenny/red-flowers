@@ -21,12 +21,12 @@ const router = createRouter({
     {
       path:"/prices",
       name:"prices",
-      component: () => import("../pages/Prices.vue"),
+      component: () => import("../pages/Prices/Prices.vue"),
     },
     {
       path:"/gallery",
       name:"gallery",
-      component: () => import("../pages/Gallery.vue"),
+      component: () => import("../pages/Gallery/Gallery.vue"),
     },
     {
       path:"/vacancies",

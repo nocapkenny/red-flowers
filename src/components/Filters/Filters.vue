@@ -72,13 +72,5 @@
   </div>
 </template>
 
-<style lang="scss" scoped>
-.container {
-    margin-top: 50px;
-}
-.card-body{
-    display: flex !important;
-    justify-content: space-between !important;
-    flex-wrap: wrap !important;
-}
-</style>
+<style src="./Filters.scss" scoped/>
+
