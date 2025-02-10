@@ -1,0 +1,50 @@
+@use "../../assets/sytles/_mixins" as *;
+.vacancy {
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2) !important;
+  @include content-box();
+  margin-top: 0;
+  padding-top: 20px;
+  &__text{
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+  }
+  &__list{
+    margin: 0;
+    margin-bottom: 15px;
+  }
+  &__list-item{
+    padding-left: 25px !important;
+  }
+  &__list-item span{
+    font-weight: 700;
+  }
+  &__list-phone{
+    position: relative;
+    &::before{
+      content: '';
+      position: absolute;
+      background-image: url('../../assets/images/phone.svg');
+      background-repeat: no-repeat;
+      background-size: contain;
+      width: 20px;
+      height: 20px;
+      left: -25px;
+      top: 0;
+    }
+  }
+  &__list-mail{
+    position: relative;
+    &::before{
+      content: '';
+      position: absolute;
+      background-image: url('../../assets/images/mail.svg');
+      background-repeat: no-repeat;
+      background-size: contain;
+      width: 20px;
+      height: 20px;
+      left: -25px;
+      top: 0;
+    }
+  }
+}
