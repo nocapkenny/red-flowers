@@ -10,14 +10,7 @@
     @include content-box();
   }
   &__title {
-    text-align: center;
     margin-top: 20px;
-    margin-bottom: 20px;
-    font-size: 26px;
-    @media (min-width: 768px) {
-      //md
-      font-size: 32px;
-    }
   }
   &__text {
     margin-bottom: 15px;

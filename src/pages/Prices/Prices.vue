@@ -9,7 +9,7 @@ const files = [1, 2, 3];
   <Header />
   <div class="prices">
     <div class="prices__box">
-      <h3 class="prices__title">Прайс-лист</h3>
+      <h3 class="prices__title title">Прайс-лист</h3>
       <p class="prices__text">
         Внимание! Уважаемые клиенты! В текущей ситуации цены, указанные на
         сайте, не являются официальной офертой: цены могут меняться в

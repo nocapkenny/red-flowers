@@ -6,7 +6,7 @@ import Header from "../../components/Header/Header.vue";
   <Header />
   <div class="about">
     <div class="about__box">
-      <h2 class="about__title">О питомнике Красная Гвоздика</h2>
+      <h2 class="about__title title">О питомнике Красная Гвоздика</h2>
       <p class="about__text">
         <span>Садовый питомник «Красная гвоздика»</span> был основан в 1997
         году. Имеет 45 га. земли, в том числе 2 га торговых площадей, пленочные

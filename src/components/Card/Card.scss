@@ -1,6 +1,6 @@
 @use "../../assets/sytles/_vars" as *;
 .card{
-    box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2) !important;
+    box-shadow: $shadow;
     border-radius: 20px;
     cursor: pointer;
     transition: all ease .5s;

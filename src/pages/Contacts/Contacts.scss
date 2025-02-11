@@ -1,0 +1,93 @@
+@use "../../assets/sytles/_mixins" as *;
+@use "../../assets/sytles/_vars" as *;
+.contacts {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  &__inner {
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  &__box-title{
+    text-align: center;
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: 700;
+  }
+  &__box-descr {
+    font-weight: 700;
+    margin: 0;
+    margin-bottom: 10px;
+  }
+  &__list{
+    margin-bottom: 20px !important;
+  }
+  &__list-item span{
+    font-weight: 700;
+  }
+  &__box {
+    box-shadow: $shadow;
+    flex: 1;
+    @include content-box();
+  }
+  &__box-img{
+    width: 70%;
+    display: block;
+    margin: 0 auto;
+    border-radius: 15px;
+    box-shadow: $shadow;
+  }
+  &__box-descr{
+    padding-left: 30px;
+    position: relative;
+    &::before{
+      content: '';
+      position: absolute;
+      background-repeat: no-repeat;
+      background-size: contain;
+      width: 30px;
+      height: 30px;
+      left: -5px;
+      top: 0px;
+    }
+  }
+  &__box-descr--address::before{
+    background-image: url('../../assets/images/address.svg');
+  }
+  &__box-descr--connect::before{
+    background-image: url('../../assets/images/phone.svg');
+  }
+  &__box-descr--work::before{
+    background-image: url('../../assets/images/clockwork.svg');
+  }
+  &__form{
+    display: flex;
+    flex-direction: column;
+  }
+  &__form-title{
+    text-align: center;
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: 700;
+  }
+  &__form-input, .contacts__form-textarea{
+    border: 1px solid $black;
+    border-radius: 15px;
+    padding: 10px;
+    margin-bottom: 20px;
+    outline: none;
+    &:focus{
+        border: 1px solid $red;
+    }
+  }
+  &__form-textarea{
+    resize: none;
+    
+  }
+  &__form-btn{
+    margin-top: 50px;
+  }
+}

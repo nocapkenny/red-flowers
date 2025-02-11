@@ -16,7 +16,7 @@
     <p class="vacancy__text">Контакты</p>
     <ul class="vacancy__list">
       <li class="vacancy__list-item">
-        <a href="tel:79999999999" class="vacancy__list-phone">+7(999)999-99-99</a>
+        <a href="tel:89999999999" class="vacancy__list-phone">+7(999)-999-99-99</a>
       </li>
       <li class="vacancy__list-item">
         <a href="mailto:mail@mail.com" class="vacancy__list-mail"
