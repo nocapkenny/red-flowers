@@ -2,6 +2,7 @@
 @use "../../assets/sytles/_mixins" as *;
 .prices {
   @include bg-section("../../assets/images/prices-bg.jpg");
+  // @include section();
   padding-left: 10px;
   padding-right: 10px;
   &__box {

@@ -1,8 +1,12 @@
 @use "../../assets/sytles/_mixins" as *;
 @use "../../assets/sytles/_vars" as *;
 .contacts {
+  @include bg-section("../../assets/images/contacts-bg.jpg");
   padding-top: 50px;
   padding-bottom: 50px;
+  &__title {
+    color: $white;
+  }
   &__inner {
     display: flex;
     justify-content: space-between;
@@ -32,6 +36,7 @@
     box-shadow: $shadow;
     flex: 1;
     @include content-box();
+    margin-top: 0;
   }
   &__box-img{
     width: 70%;

@@ -1,6 +1,21 @@
+<script setup>
+import { defineProps, defineEmits } from 'vue';
+
+const props = defineProps({
+  isBigCard: {
+    type: Boolean,
+    default: false,
+    required: true
+  },
+})
+
+const emit = defineEmits(['update:isBigCard'])
+
+</script>
+
 <template>
   <div class="container">
-    <div class="card shadow-sm mb-4">
+    <div class="card mb-4">
       <div class="card-header bg-light">
         <h5 class="mb-0">Фильтры</h5>
       </div>
@@ -65,6 +80,18 @@
             <option value="fast">Быстрая</option>
           </select>
         </div>
+        <div class="mb-3 form-check form-switch">
+          <input
+            class="form-check-input"
+            id="flexSwitchCheckDefault"
+            type="checkbox"
+            :checked="isBigCard"
+            @change="$emit('update:isBigCard', !isBigCard)"
+          />
+          <label class="form-check-label" for="flexSwitchCheckDefault">
+            Больше информации
+          </label>
+        </div>
 
         <button class="btn btn-secondary w-100">Сбросить фильтры</button>
       </div>
@@ -72,5 +99,4 @@
   </div>
 </template>
 
-<style src="./Filters.scss" scoped/>
-
+<style src="./Filters.scss" scoped />
