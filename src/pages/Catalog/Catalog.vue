@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref, watch } from 'vue'
+import { ref } from 'vue'
 import Header from '../../components/Header/Header.vue'
 import CardList from '../../components/CardList/CardList.vue'
 import Filters from '../../components/Filters/Filters.vue'

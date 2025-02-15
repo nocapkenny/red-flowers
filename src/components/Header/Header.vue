@@ -1,14 +1,14 @@
 <script setup>
-import { useRoute } from 'vue-router'
-const $route = useRoute()
-
-
+import { useRoute } from "vue-router";
+const $route = useRoute();
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-lg ">
+  <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
-      <a href="#" class="navbar-brand"> Красная Гвоздика </a>
+      <a href="#" class="navbar-brand">
+        <img src="../../assets/images/logo.jpg" alt="logo" width="60"/>
+      </a>
       <!-- бургер меню -->
       <button
         class="navbar-toggler"
@@ -24,28 +24,68 @@ const $route = useRoute()
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <router-link class="nav-link" :class="{ active: $route.path === '/' }" to="/">Главная</router-link>
+            <router-link
+              class="nav-link"
+              :class="{ active: $route.path === '/' }"
+              to="/"
+              >Главная</router-link
+            >
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" :class="{ active: $route.path === '/about' }" to="/about">О нас</router-link>
+            <router-link
+              class="nav-link"
+              :class="{ active: $route.path === '/about' }"
+              to="/about"
+              >О нас</router-link
+            >
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" :class="{ active: $route.path === '/catalog' }" to="/catalog">Каталог</router-link>
+            <router-link
+              class="nav-link"
+              :class="{ active: $route.path === '/catalog' }"
+              to="/catalog"
+              >Каталог</router-link
+            >
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" :class="{ active: $route.path === '/prices' }" to="/prices">Прайс-лист</router-link>
+            <router-link
+              class="nav-link"
+              :class="{ active: $route.path === '/prices' }"
+              to="/prices"
+              >Прайс-лист</router-link
+            >
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" :class="{ active: $route.path === '/gallery' }" to="/gallery">Галерея</router-link>
+            <router-link
+              class="nav-link"
+              :class="{ active: $route.path === '/gallery' }"
+              to="/gallery"
+              >Галерея</router-link
+            >
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" :class="{ active: $route.path === '/vacancies' }" to="/vacancies">Вакансии</router-link>
+            <router-link
+              class="nav-link"
+              :class="{ active: $route.path === '/vacancies' }"
+              to="/vacancies"
+              >Вакансии</router-link
+            >
           </li>
+          <!-- <li class="nav-item">
+            <router-link
+              class="nav-link"
+              :class="{ active: $route.path === '/articles' }"
+              to="/articles"
+              >Статьи</router-link
+            >
+          </li> -->
           <li class="nav-item">
-            <router-link class="nav-link" :class="{ active: $route.path === '/articles' }" to="/articles">Статьи</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" :class="{ active: $route.path === '/contacts' }" to="/contacts">Контакты</router-link>
+            <router-link
+              class="nav-link"
+              :class="{ active: $route.path === '/contacts' }"
+              to="/contacts"
+              >Контакты</router-link
+            >
           </li>
         </ul>
       </div>
@@ -53,5 +93,4 @@ const $route = useRoute()
   </nav>
 </template>
 
-<style src="./Header.scss" scoped/>
-
+<style src="./Header.scss" scoped />
