@@ -1,9 +1,5 @@
 from rest_framework.routers import DefaultRouter
-<<<<<<< HEAD
 from django.conf.urls import include
-=======
-from django.conf.urls import url, include
->>>>>>> 8e0ab739f64b0bbd314ac9aa75f85d58fe4b629b
 from django.urls import path
 import  plantapp.views as plan_view
 import  docapp.views as doc_view

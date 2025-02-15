@@ -1,32 +1,20 @@
 <script setup>
-<<<<<<< HEAD
 import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 const $route = useRoute();
 
 const isMenuOpen = ref(false);
-=======
-import { useRoute } from "vue-router";
-const $route = useRoute();
->>>>>>> 8e0ab739f64b0bbd314ac9aa75f85d58fe4b629b
 </script>
 
 <template>
   <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
       <a href="#" class="navbar-brand">
-<<<<<<< HEAD
         <img src="../../assets/images/logo.jpg" alt="logo" width="60" />
       </a>
       <!-- бургер меню -->
       <button
         @click="isMenuOpen = !isMenuOpen"
-=======
-        <img src="../../assets/images/logo.jpg" alt="logo" width="60"/>
-      </a>
-      <!-- бургер меню -->
-      <button
->>>>>>> 8e0ab739f64b0bbd314ac9aa75f85d58fe4b629b
         class="navbar-toggler"
         type="button"
         data-bs-toggle="collapse"
@@ -37,7 +25,6 @@ const $route = useRoute();
       >
         <span class="navbar-toggler-icon"></span>
       </button>
-<<<<<<< HEAD
       <div
         class="mobile-menu collapse"
         :class="{ show: isMenuOpen }"
@@ -118,8 +105,6 @@ const $route = useRoute();
           </li>
         </ul>
       </div>
-=======
->>>>>>> 8e0ab739f64b0bbd314ac9aa75f85d58fe4b629b
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
