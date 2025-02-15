@@ -1,0 +1,126 @@
+% !TEX encoding = UTF-8
+\documentclass[aps,final,12t,onecolumn,superscriptaddress,%
+noshowpacs,%
+centertags,a4paper]{article}
+
+\usepackage[a4paper, 
+        left=2cm,
+        right=1.2cm,
+        top=1cm,
+        bottom=2cm,
+        ]{geometry}
+%\usepackage[T2A]{fontenc} % Поддержка русских букв
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+%\input{packages}
+\usepackage{listings}  
+\usepackage{csquotes}
+\usepackage{longtable}
+\usepackage{array}
+ \usepackage{booktabs}
+\usepackage{graphicx} % Подключаем пакет работы с графикой
+\usepackage{ragged2e}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{siunitx}
+
+
+\justifying
+\sloppy
+\tolerance=500
+\hyphenpenalty=10000
+\emergencystretch=3em
+%\righthyphenmin=2
+\sloppy
+\linespread{1.2}
+
+%\usepackage[table]{xcolor}
+
+\usepackage{todonotes}
+\usepackage{menukeys}
+\usepackage{fontspec}
+\setmainfont{Liberation Sans}
+
+\sisetup{
+  group-four-digits = true,
+  group-separator = {~}
+}
+
+\definecolor{primary}{rgb}{0, 0.45, 0.87}
+
+\providecommand{\tightlist}{
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}
+  
+  }
+%\usepackage[sfdefault,light]{roboto}  %% Option 'sfdefault' only if the base font of the document is to be sans serif
+
+
+\begin{document}
+\begin{flushleft} % сдвигает содержимое окружения вправо
+\end{flushleft}
+
+\vspace*{-1.0cm}
+ {
+ \parindent0pt 
+    \footnotesize
+%\vspace*{-0.4cm}
+    \parbox{0.5\textwidth}{
+    \hspace{1.5cm}
+    \includegraphics[width=2.5cm]{/home/che/web/svn/gvozdika/docapp/static/logo.jpeg}
+}
+\parbox{0.49\textwidth}
+{
+\flushright
+\textbf{ Питомник садовых растений Красная Гвоздика}
+
+\textbf{ИП Черепанова Вера Ивановна}
+
+д. Башкултаево, Пермский край (20 км от г. Перми)
+
+krasnay-gvozdika@yandex.ru
+
+тел. 8-922-640-66-83, 8-922-640-86-04, 8-922-640-66-49
+}
+\vspace*{1.0cm}
+}
+
+
+
+{
+ \parindent0pt 
+
+\parbox[t]{0.49\textwidth}{
+\flushleft
+Заказчик:  {{object.counterparty.name}}
+}
+\parbox[t]{0.49\textwidth}{
+\flushright
+\textbf{№  {{object.id}} от {{object.date|format_datetime}}г.}
+}
+\begin{center}
+   { \large
+    \textbf{Коммерческое предложение}
+}
+
+Питомник <<Красная гвоздика>>  готов поставить в Ваш адрес ассортимент декоративных культур
+\end{center}
+
+
+\begin{longtable}{|p{10.8cm}|r|r |r|}
+
+    \hline
+    \textbf{ Наименование} &\textbf{Кол-во} & \textbf{Цена} & \textbf{сумма} \\
+    \hline
+{% for item in item_set%}
+ {{item.goods.plant.species.genus.name}}
+    {\footnotesize {{item.goods.plant.species_name()|latex_escape }} }&\num{ {{item.count}} }&   
+    \num{ {{item.goods.price}} }&  \num{ {{item.total}} }  \\ \hline
+{%endfor%}
+
+    \textbf{ Итого} & & & \textbf{\num{ {{total}} } } \\
+    \hline
+\end{longtable}
+
+\vspace*{\fill}
+\end{document}

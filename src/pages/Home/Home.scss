@@ -1,0 +1,36 @@
+@use "../../assets/sytles/_vars" as *;
+@use "../../assets/sytles/_mixins" as *;
+
+.home {
+  @include bg-section("../../assets/images/home-bg.jpg");
+
+  &__title {
+    text-align: center;
+    color: $white;
+    font-size: 36px;
+    @media (min-width: 768px) {
+      font-size: 42px;
+    }
+    @media (min-width: 992px) {
+      font-size: 54px;
+    }
+  }
+  &__link {
+    display: inline-block;
+    background-color: $red;
+    padding: 10px 25px;
+    font-size: 18px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 30px;
+    transition: all 0.3s ease;
+    border: 2px solid $red;
+    color: $white !important;
+    @media (min-width: 768px) {
+      font-size: 24px;
+    }
+  }
+  &__link:hover {
+    background-color: transparent;
+  }
+}

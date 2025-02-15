@@ -1,0 +1,29 @@
+@use "../../assets/sytles/_vars" as *;
+.container {
+    margin-top: 50px;
+}
+.card{
+    box-shadow: $shadow;
+}
+.card-body{
+    display: flex !important;
+    justify-content: space-between !important;
+    flex-wrap: wrap !important;
+}
+.form-select{
+  cursor: pointer;
+}
+.form-select:focus{
+  border: 1px solid $red !important;
+  box-shadow: 4px 4px 8px 0px rgba($red, .5) !important;
+}
+
+.form-check-input:checked {
+  background-color: $red;
+  border-color: $red;
+}
+
+.form-check-input:checked:hover {
+  filter: brightness(90%);
+}
+

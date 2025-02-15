@@ -1,0 +1,18 @@
+@use "../../assets/sytles/_vars" as *;
+@use "../../assets/sytles/_mixins" as *;
+.prices {
+  @include bg-section("../../assets/images/prices-bg.jpg");
+  // @include section();
+  padding-left: 10px;
+  padding-right: 10px;
+  &__box {
+    @include content-box();
+    padding-bottom: 50px;
+  }
+  &__title {
+    margin-top: 30px;
+  }
+  &__text {
+    font-size: 18px;
+  }
+}
