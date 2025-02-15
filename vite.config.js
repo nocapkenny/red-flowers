@@ -13,6 +13,7 @@ export default defineConfig({
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },
+<<<<<<< HEAD
   server: {
     proxy: {
       "/api": {
@@ -21,4 +22,6 @@ export default defineConfig({
       },
     },
   }
+=======
+>>>>>>> 8e0ab739f64b0bbd314ac9aa75f85d58fe4b629b
 });

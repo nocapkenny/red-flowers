@@ -47,8 +47,13 @@ class PlantViewSet(viewsets.ModelViewSet):
     serializer_class = PlantSerializer
     filter_backends = (DjangoFilterBackend,OrderingFilter)
     filterset_class  = PlantSetFilter
+<<<<<<< HEAD
     permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
     # permission_classes = [IsAuthenticated,DjangoModelPermissions]
+=======
+    #permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
+    permission_classes = [IsAuthenticated,DjangoModelPermissions]
+>>>>>>> 8e0ab739f64b0bbd314ac9aa75f85d58fe4b629b
 class GenusSetFilter(FilterSet):
     class Meta:
         model = Genus
@@ -62,9 +67,15 @@ class GenusViewSet(viewsets.ModelViewSet):
     filter_backends = (DjangoFilterBackend,OrderingFilter)
     filterset_class  = GenusSetFilter
     ordering_fields = ['name']
+<<<<<<< HEAD
     permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
 
     # permission_classes = [IsAuthenticated,DjangoModelPermissions]
+=======
+    #permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
+
+    permission_classes = [IsAuthenticated,DjangoModelPermissions]
+>>>>>>> 8e0ab739f64b0bbd314ac9aa75f85d58fe4b629b
 class CategorySetFilter(FilterSet):
     class Meta:
         model = Category
@@ -77,8 +88,13 @@ class CategoryViewSet(viewsets.ModelViewSet):
     serializer_class = CategorySerializer
     filter_backends = (DjangoFilterBackend,OrderingFilter)
     filterset_class  = CategorySetFilter
+<<<<<<< HEAD
     # permission_classes = [IsAuthenticated,DjangoModelPermissions]
     permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
+=======
+    permission_classes = [IsAuthenticated,DjangoModelPermissions]
+    #permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
+>>>>>>> 8e0ab739f64b0bbd314ac9aa75f85d58fe4b629b
 
     @action(methods=["GET"],detail=True)
     def price_xls(self,request,pk=None):
@@ -116,5 +132,9 @@ class PhotoViewSet(viewsets.ModelViewSet):
     serializer_class = PhotoSerializer
     filter_backends = (DjangoFilterBackend,OrderingFilter)
     filterset_class  = PhotoSetFilter
+<<<<<<< HEAD
     # permission_classes = [IsAuthenticated,DjangoModelPermissions]
     permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
+=======
+    permission_classes = [IsAuthenticated,DjangoModelPermissions]
+>>>>>>> 8e0ab739f64b0bbd314ac9aa75f85d58fe4b629b
