@@ -31,8 +31,7 @@ export default {
   height: 100%;
   cursor: pointer;
   max-width: 310px;
-}
-.skeleton + .skeleton {
   margin-left: 20px;
 }
+
 </style>
