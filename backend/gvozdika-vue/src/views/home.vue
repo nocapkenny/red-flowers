@@ -42,7 +42,7 @@ export default {
             list:[],
             page:1,
             maxPage:0,
-            filter:{name:'',genus:''}
+            filter:{name:'1',genus:'2'}
         }
     },
     components:{

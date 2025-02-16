@@ -23,6 +23,7 @@ const vacancies = [1, 2, 3, 5];
 @use "../../assets/sytles/_vars" as *;
 @use "../../assets/sytles/_mixins" as *;
 .vacancies {
+  padding-top: 50px;
   @include bg-section("../../assets/images/vacancies-bg.jpg");
   &__title {
     color: $white;

@@ -1,22 +1,27 @@
 <script setup>
+import { ref, watch } from "vue";
+import { usePlantsStore } from "@/stores/plantsStore";
+import Skeleton from "../Skeleton/Skeleton.vue";
 import Card from "../Card/Card.vue";
+const plantsStore = usePlantsStore();
 const props = defineProps({
   isBigCard: {
     type: Boolean,
-    default: false,
+    default: false, 
     required: true
   },
 })
 
 
-const cards = [1, 2, 3, 4, 5, 6, 7];
+
 </script>
 
 <template>
   <div class="container text-center">
     <div class="row row-cols-1 row-cols-md-4 g-4" v-auto-animate>
-      <div class="col" v-for="card in cards" :key="card">
-        <Card :isBigCard="isBigCard"/>
+      <Skeleton v-if="plantsStore.isLoading" v-for="i in 4" :key="i" />
+      <div v-if="!plantsStore.isLoading" class="col" v-for="plant in plantsStore.plants">
+        <Card :id="plant.id" :pot="plant.goods_set[0].pot_size" :height="plant.goods_set[0].height" :descr="plant.description" :sort="plant.sort" :name="plant.species.name" :name-latin="plant.species.name_latin" :isBigCard="isBigCard"/>
       </div>
     </div>
   </div>

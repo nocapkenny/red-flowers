@@ -3,7 +3,7 @@
 
 .home {
   @include bg-section("../../assets/images/home-bg.jpg");
-
+  justify-content: center;
   &__title {
     text-align: center;
     color: $white;

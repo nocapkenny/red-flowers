@@ -43,6 +43,11 @@ const router = createRouter({
       name:"contacts",
       component: () => import("../pages/Contacts/Contacts.vue"),
     },
+    {
+      path:"/plant/:id",
+      name: "plant-detail",
+      component: () => import("../pages/PlantDetail/PlantDetail.vue"),
+    }
   ],
 });
 

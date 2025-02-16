@@ -8,8 +8,8 @@ export const counterpartyUrl= '/api/docapp/counterparty/'
 export const userUrl= '/api/getUser/'
 
 
-import moment from 'moment'
-moment.locale('ru-ru')
+// import moment from 'moment'
+// moment.locale('ru-ru')
 import axios from 'axios'
 
 export default   function toURLParams(filters){

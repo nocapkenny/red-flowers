@@ -2,8 +2,10 @@
 .card{
     box-shadow: $shadow;
     border-radius: 20px;
+    height: 100%;
     cursor: pointer;
     transition: all ease .5s;
+    justify-content: space-between !important;
     &:hover{
         box-shadow: 4px 4px 8px 0px rgba($red, .5) !important;
     }
@@ -16,4 +18,5 @@
     &__spec span {
         font-weight: 700;
     }
+    
 }

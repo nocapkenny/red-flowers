@@ -13,9 +13,10 @@ const props = defineProps({
 const plantsStore = usePlantsStore();
 const currentCategory = ref("");
 const currentGenus = ref("");
+const filters = ref({category_id: 1, genus_id: 2});
 
 const filteredGenuses = computed(() => {
-  if (!currentCategory.value) return plantsStore.genuses; // Если категория не выбрана, показываем все роды
+  if (!currentCategory.value) return plantsStore.genuses;
   return plantsStore.genuses.filter(
     (genus) => genus.category_id === currentCategory.value
   );
@@ -24,17 +25,24 @@ const filteredGenuses = computed(() => {
 const resetFilters = () => {
   currentCategory.value = "";
   currentGenus.value = "";
+  plantsStore.plants = null;
 };
-
 
 const emit = defineEmits(["update:isBigCard"]);
 
 onMounted(() => {
   plantsStore.getCategories();
   plantsStore.getGenuses();
+  plantsStore.getPlants(filters.value);
 });
-watch(currentCategory, () => {
-  console.log(currentCategory.value);
+watch(currentGenus, () => {
+  if (currentGenus.value && currentGenus.value !== "") {
+    filters.value = {
+      category_id: currentCategory.value,
+      genus_id: currentGenus.value,
+    };
+    plantsStore.getPlants(filters.value);
+  }
 });
 </script>
 
@@ -47,7 +55,11 @@ watch(currentCategory, () => {
       <div class="card-body">
         <div class="mb-3">
           <label class="form-label">Категория</label>
-          <select class="form-select" v-model="currentCategory" @change="currentGenus = ''">
+          <select
+            class="form-select"
+            v-model="currentCategory"
+            @change="currentGenus = ''"
+          >
             <option value="" selected>Любая категория</option>
             <option
               :value="category.id"
@@ -86,7 +98,9 @@ watch(currentCategory, () => {
           </label>
         </div>
 
-        <button class="btn btn-secondary w-100" @click="resetFilters">Сбросить фильтры</button>
+        <button class="btn btn-secondary w-100" @click="resetFilters">
+          Сбросить фильтры
+        </button>
       </div>
     </div>
   </div>

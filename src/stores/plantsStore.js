@@ -6,8 +6,28 @@ export const usePlantsStore = defineStore("plantsStore", () => {
   //states
   const categories = ref();
   const genuses = ref();
+  const plants = ref();
+  const plant = ref();
+  const isLoading = ref(false);
 
   //actions
+  const throttling = () => {
+    //функция для искусственной задержки отображения компонента
+    const minLoadingTime = 800;
+    isLoading.value = true;
+    const loadData = new Promise((resolve) => {
+      setTimeout(() => {
+        resolve();
+      }, 2000);
+    });
+    Promise.all([
+      loadData,
+      new Promise((resolve) => setTimeout(resolve, minLoadingTime)),
+    ]).then(() => {
+      isLoading.value = false;
+    });
+  };
+
   const getCategories = async () => {
     try {
       const { data } = await axios.get("/api/plantapp/category/");
@@ -17,8 +37,6 @@ export const usePlantsStore = defineStore("plantsStore", () => {
       }));
     } catch (err) {
       console.error(err);
-    } finally {
-      console.log(categories.value);
     }
   };
   const getGenuses = async () => {
@@ -62,10 +80,40 @@ export const usePlantsStore = defineStore("plantsStore", () => {
       genuses.value = uniqueGenuses;
     } catch (err) {
       console.error(err);
+    }
+  };
+  const getPlants = async (filter) => {
+    try {
+      const { data } = await axios.get(
+        `/api/plantapp/plant/?page=1&genus__category=${filter.category_id}&genus=${filter.genus_id}`
+      );
+      plants.value = data.results;
+    } catch (err) {
+      console.error(err);
     } finally {
-      console.log(genuses.value);
+      throttling()
+    }
+  };
+  const getPlantById = async (id) => {
+    try {
+      const { data } = await axios.get(`/api/plantapp/plant/${id}/`);
+      plant.value = data;
+    } catch (err) {
+      console.error(err);
+    } finally {
+      console.log(plant.value);
     }
   };
 
-  return { categories, getCategories, genuses, getGenuses };
+  return {
+    categories,
+    getCategories,
+    genuses,
+    getGenuses,
+    getPlants,
+    plants,
+    plant,
+    getPlantById,
+    isLoading,
+  };
 });
