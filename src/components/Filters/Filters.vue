@@ -2,33 +2,60 @@
 import { onMounted, watch, computed } from "vue";
 import { usePlantsStore } from "@/stores/plantsStore";
 import { ref } from "vue";
-const props = defineProps({
-  isBigCard: {
-    type: Boolean,
-    default: false,
-    required: true,
-  },
-});
 
 const plantsStore = usePlantsStore();
 const currentCategory = ref("");
 const currentGenus = ref("");
-const filters = ref({category_id: 1, genus_id: 2});
+const filters = ref({ category_id: "", genus_id: "" });
+const visibleGenusesCount = ref(12);
 
-const filteredGenuses = computed(() => {
-  if (!currentCategory.value) return plantsStore.genuses;
-  return plantsStore.genuses.filter(
-    (genus) => genus.category_id === currentCategory.value
-  );
-});
-
-const resetFilters = () => {
-  currentCategory.value = "";
-  currentGenus.value = "";
-  plantsStore.plants = null;
+const toggleCategory = (id) => {
+  if (currentCategory.value === id) {
+    currentCategory.value = "";
+    visibleGenusesCount.value = 12;
+  } else {
+    currentCategory.value = id;
+    visibleGenusesCount.value = 12;
+  }
+};
+const toggleGenus = (id) => {
+  if (currentGenus.value === id) {
+    currentGenus.value = "";
+  } else {
+    currentGenus.value = id;
+  }
 };
 
-const emit = defineEmits(["update:isBigCard"]);
+//подсчитываем кол-во элементов в родов в категории
+const totalGenusCount = computed(() => {
+  if (!currentCategory.value) return plantsStore.genuses.length;
+  return plantsStore.genuses.filter(
+    (genus) => genus.category_id === currentCategory.value
+  ).length;
+});
+
+//фильтруем список родов исходя из выбранной категории, отображаем только первые 12
+const filteredGenuses = computed(() => {
+  if (!currentCategory.value) return plantsStore.genuses;
+  const filtered = plantsStore.genuses.filter(
+    (genus) => genus.category_id === currentCategory.value
+  );
+  return filtered.slice(0, visibleGenusesCount.value);
+});
+
+const showMoreBtn = computed(() => {
+  return filteredGenuses.value.length < totalGenusCount.value;
+})
+const showCloseBtn = computed(() => {
+  return filteredGenuses.value.length === totalGenusCount.value && filteredGenuses.value.length !== visibleGenusesCount.value;
+})
+
+const showMoreGenuses = () => {
+  visibleGenusesCount.value += 12;
+};
+const closeGenuses = () => {
+  visibleGenusesCount.value = 12;
+}
 
 onMounted(() => {
   plantsStore.getCategories();
@@ -47,60 +74,56 @@ watch(currentGenus, () => {
 </script>
 
 <template>
-  <div class="container">
-    <div class="card mb-4">
-      <div class="card-header bg-light">
-        <h5 class="mb-0">Фильтры</h5>
-      </div>
-      <div class="card-body">
-        <div class="mb-3">
-          <label class="form-label">Категория</label>
-          <select
-            class="form-select"
-            v-model="currentCategory"
-            @change="currentGenus = ''"
+  <div class="filter">
+    <p class="filter__title title">Фильтры</p>
+    <div
+      class="filter__inner"
+      v-for="category in plantsStore.categories"
+      :key="category.id"
+    >
+      <div class="filter__box">
+        <h3
+          :class="
+            currentCategory === category.id
+              ? 'filter__category--active filter__category'
+              : 'filter__category'
+          "
+          @click="toggleCategory(category.id)"
+        >
+          {{ category.name }}
+        </h3>
+        <div class="filter__genus-box" v-if="currentCategory === category.id">
+          <div
+            class="filter__genuses"
+            v-for="genus in filteredGenuses"
+            :key="genus.id"
           >
-            <option value="" selected>Любая категория</option>
-            <option
-              :value="category.id"
-              :key="category.id"
-              v-for="category in plantsStore.categories"
-            >
-              {{ category.name }}
-            </option>
-          </select>
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">Род</label>
-          <select class="form-select" v-model="currentGenus">
-            <option value="" selected>Любой род</option>
-            <option
-              :value="genus.id"
-              v-for="genus in filteredGenuses"
-              :key="genus.id"
+            <p
+              :class="
+                currentGenus === genus.id
+                  ? 'filter__genus--active filter__genus'
+                  : 'filter__genus'
+              "
+              @click="toggleGenus(genus.id)"
             >
               {{ genus.name }}
-            </option>
-          </select>
+            </p>
+          </div>
+          <button
+            @click="showMoreGenuses"
+            class="filter__btn btn"
+            v-if="showMoreBtn"
+          >
+            Показать больше
+          </button>
+          <button
+            @click="closeGenuses"
+            class="filter__btn btn"
+            v-if="showCloseBtn"
+          >
+            Свернуть
+          </button>
         </div>
-
-        <div class="mb-3 form-check form-switch">
-          <input
-            class="form-check-input"
-            id="flexSwitchCheckDefault"
-            type="checkbox"
-            :checked="isBigCard"
-            @change="$emit('update:isBigCard', !isBigCard)"
-          />
-          <label class="form-check-label" for="flexSwitchCheckDefault">
-            Больше информации
-          </label>
-        </div>
-
-        <button class="btn btn-secondary w-100" @click="resetFilters">
-          Сбросить фильтры
-        </button>
       </div>
     </div>
   </div>

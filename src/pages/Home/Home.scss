@@ -3,6 +3,7 @@
 
 .home {
   @include bg-section("../../assets/images/home-bg.jpg");
+  min-height: calc(85vh - 96px);
   justify-content: center;
   &__title {
     text-align: center;

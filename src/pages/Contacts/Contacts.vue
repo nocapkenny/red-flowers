@@ -77,12 +77,8 @@ import Header from "../../components/Header/Header.vue";
           </form>
         </div>
       </div>
-      <!-- тут можно iframe с картой -->
-      <img
-        src="../../assets/images/map.jpg"
-        alt="map"
-        class="contacts__box-img"
-      />
+      <p class="contacts__box-title contacts__box-title--map">Найти нас</p>
+      <img src="../../assets/images/map.jpg" alt="map" class="contacts__map" />
     </div>
   </div>
 </template>

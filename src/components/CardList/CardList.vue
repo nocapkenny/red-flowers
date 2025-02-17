@@ -5,13 +5,6 @@ import Skeleton from "../Skeleton/Skeleton.vue";
 import Empty from "../Empty/Empty.vue";
 import Card from "../Card/Card.vue";
 const plantsStore = usePlantsStore();
-const props = defineProps({
-  isBigCard: {
-    type: Boolean,
-    default: false, 
-    required: true
-  },
-})
 
 
 
@@ -23,7 +16,7 @@ const props = defineProps({
       <Skeleton v-if="plantsStore.isLoading" v-for="i in 4" :key="i" />
       <Empty v-if="!plantsStore.isLoading && !plantsStore.plants || plantsStore.plants.length === 0 && !plantsStore.isLoading" />
       <div v-if="!plantsStore.isLoading" class="col" v-for="plant in plantsStore.plants">
-        <Card :id="plant.id" :pot="plant.goods_set[0].pot_size" :height="plant.goods_set[0].height" :descr="plant.description" :sort="plant.sort" :name="plant.species.name" :name-latin="plant.species.name_latin" :isBigCard="isBigCard"/>
+        <Card :id="plant.id" :pot="plant.goods_set[0].pot_size" :height="plant.goods_set[0].height" :descr="plant.description" :sort="plant.sort" :name="plant.species.name" :name-latin="plant.species.name_latin"/>
       </div>
       
     </div>

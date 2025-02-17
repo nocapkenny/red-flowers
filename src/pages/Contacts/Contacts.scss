@@ -17,8 +17,8 @@
   }
   &__box-title{
     text-align: center;
-    margin-top: 20px;
-    font-size: 20px;
+    padding-top: 20px;
+    font-size: 22px;
     font-weight: 700;
   }
   &__box-descr {
@@ -38,7 +38,10 @@
     @include content-box();
     margin-top: 0;
   }
-  &__box-img{
+  &__box-title--map{
+    color: $white;
+  }
+  &__map{
     width: 70%;
     display: block;
     margin: 0 auto;
