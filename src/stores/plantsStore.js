@@ -9,6 +9,8 @@ export const usePlantsStore = defineStore("plantsStore", () => {
   const plants = ref();
   const plant = ref();
   const isLoading = ref(false);
+  const currentGenus = ref(localStorage.getItem("currentGenus"));
+  const currentCategory = ref(localStorage.getItem("currentCategory"));
 
   //actions
   const throttling = () => {
@@ -18,7 +20,7 @@ export const usePlantsStore = defineStore("plantsStore", () => {
     const loadData = new Promise((resolve) => {
       setTimeout(() => {
         resolve();
-      }, 2000);
+      }, 1000);
     });
     Promise.all([
       loadData,
@@ -82,8 +84,12 @@ export const usePlantsStore = defineStore("plantsStore", () => {
       console.error(err);
     }
   };
-  const getPlants = async (filter) => {
+  const getPlants = async () => {
     try {
+      const filter = {
+        category_id: currentCategory.value,
+        genus_id: currentGenus.value
+      }
       const { data } = await axios.get(
         `/api/plantapp/plant/?page=1&genus__category=${filter.category_id}&genus=${filter.genus_id}`
       );
@@ -91,6 +97,7 @@ export const usePlantsStore = defineStore("plantsStore", () => {
     } catch (err) {
       console.error(err);
     } finally {
+      console.log(plants.value);
       throttling()
     }
   };
@@ -115,5 +122,7 @@ export const usePlantsStore = defineStore("plantsStore", () => {
     plant,
     getPlantById,
     isLoading,
+    currentCategory,
+    currentGenus
   };
 });

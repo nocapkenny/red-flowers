@@ -7,10 +7,11 @@
     transition: all ease .5s;
     justify-content: space-between !important;
     &:hover{
-        box-shadow: 4px 4px 8px 0px rgba($red, .5) !important;
+        box-shadow: $shadow-hover;
     }
     &-img-top{
         border-radius: 20px 20px 0 0;
+        max-height: 400px;
     }
     &-text{
         opacity: 0.8;

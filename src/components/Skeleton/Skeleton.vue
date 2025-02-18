@@ -8,7 +8,7 @@ export default {
 
 <template>
   <content-loader
-    viewBox="0 0 280 520"
+    viewBox="0 0 280 580"
     :speed="3"
     primaryColor="#eee3e3"
     secondaryColor="#fb8383"
@@ -30,8 +30,13 @@ export default {
   border-radius: 20px;
   height: 100%;
   cursor: pointer;
-  max-width: 310px;
+  max-width: 220px;
   margin-left: 20px;
+  @media (min-width: 600px) {
+    max-width: 280px;
+  }
+  @media (min-width: 560px) {
+    max-width: 250px;
+  }
 }
-
 </style>

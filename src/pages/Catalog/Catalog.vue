@@ -17,7 +17,10 @@ import Filters from "../../components/Filters/Filters.vue";
 <style lang="scss" scoped>
 @use "../../assets/sytles/_mixins" as *;
 .catalog {
-  // @include bg-section("../../assets/images/catalog-bg.jpg");
-  display: flex;
+  @include bg-section("../../assets/images/catalog-bg.jpg");
+  flex-direction: row;
+  align-items: normal;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 </style>

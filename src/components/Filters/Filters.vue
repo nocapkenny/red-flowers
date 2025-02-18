@@ -2,12 +2,14 @@
 import { onMounted, watch, computed } from "vue";
 import { usePlantsStore } from "@/stores/plantsStore";
 import { ref } from "vue";
+import Pagination from "../Pagination/Pagination.vue";
+import { storeToRefs } from "pinia";
 
 const plantsStore = usePlantsStore();
-const currentCategory = ref("");
-const currentGenus = ref("");
-const filters = ref({ category_id: "", genus_id: "" });
+const { currentCategory, currentGenus } = storeToRefs(plantsStore);
 const visibleGenusesCount = ref(12);
+const currentGenusPage = ref(1);
+
 
 const toggleCategory = (id) => {
   if (currentCategory.value === id) {
@@ -16,6 +18,7 @@ const toggleCategory = (id) => {
   } else {
     currentCategory.value = id;
     visibleGenusesCount.value = 12;
+    localStorage.setItem("currentCategory", id);
   }
 };
 const toggleGenus = (id) => {
@@ -23,8 +26,10 @@ const toggleGenus = (id) => {
     currentGenus.value = "";
   } else {
     currentGenus.value = id;
+    localStorage.setItem("currentGenus", id);
   }
 };
+
 
 //подсчитываем кол-во элементов в родов в категории
 const totalGenusCount = computed(() => {
@@ -40,37 +45,33 @@ const filteredGenuses = computed(() => {
   const filtered = plantsStore.genuses.filter(
     (genus) => genus.category_id === currentCategory.value
   );
-  return filtered.slice(0, visibleGenusesCount.value);
+  const start = (currentGenusPage.value - 1) * visibleGenusesCount.value;
+  const end = start + visibleGenusesCount.value;
+  return filtered.slice(start, end);
 });
 
-const showMoreBtn = computed(() => {
-  return filteredGenuses.value.length < totalGenusCount.value;
-})
-const showCloseBtn = computed(() => {
-  return filteredGenuses.value.length === totalGenusCount.value && filteredGenuses.value.length !== visibleGenusesCount.value;
-})
+const totalGenusPages = computed(() => {
+  return Math.ceil(totalGenusCount.value / visibleGenusesCount.value);
+});
 
-const showMoreGenuses = () => {
-  visibleGenusesCount.value += 12;
+
+const changeGenusPage = (page) => {
+  currentGenusPage.value = page;
 };
-const closeGenuses = () => {
-  visibleGenusesCount.value = 12;
-}
 
 onMounted(() => {
   plantsStore.getCategories();
   plantsStore.getGenuses();
-  plantsStore.getPlants(filters.value);
+  plantsStore.getPlants();
 });
 watch(currentGenus, () => {
-  if (currentGenus.value && currentGenus.value !== "") {
-    filters.value = {
-      category_id: currentCategory.value,
-      genus_id: currentGenus.value,
-    };
-    plantsStore.getPlants(filters.value);
+  if (currentGenus.value) {
+    plantsStore.getPlants();
   }
 });
+watch(currentCategory, () => {
+  currentGenusPage.value = 1;
+})
 </script>
 
 <template>
@@ -109,20 +110,12 @@ watch(currentGenus, () => {
               {{ genus.name }}
             </p>
           </div>
-          <button
-            @click="showMoreGenuses"
-            class="filter__btn btn"
-            v-if="showMoreBtn"
-          >
-            Показать больше
-          </button>
-          <button
-            @click="closeGenuses"
-            class="filter__btn btn"
-            v-if="showCloseBtn"
-          >
-            Свернуть
-          </button>
+          <Pagination
+            :currentPage="currentGenusPage"
+            :totalPages="totalGenusPages"
+            @changePage="changeGenusPage"
+            v-if="totalGenusPages > 1"
+          />
         </div>
       </div>
     </div>
