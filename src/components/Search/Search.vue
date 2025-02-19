@@ -23,7 +23,7 @@ onMounted(()=>{
       placeholder="Поиск растений..."
       class="search__input"
     />
-    <ul v-if="searchQuery.length > 0" class="search__suggestions">
+    <ul v-if="searchQuery.length > 0" class="search__suggestions" >
       <li
         v-for="option in searchPlants"
         :key="option.id"
