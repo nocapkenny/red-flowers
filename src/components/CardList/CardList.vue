@@ -8,7 +8,7 @@ import Pagination from "../Pagination/Pagination.vue";
 const plantsStore = usePlantsStore();
 import { storeToRefs } from "pinia";
 
-const { currentGenus } = storeToRefs(plantsStore);
+const { currentGenus, searchPlants } = storeToRefs(plantsStore);
 
 const currentPage = ref(1);
 const visiblePlantsCount = ref(8);
@@ -16,6 +16,9 @@ const visiblePlantsCount = ref(8);
 
 const totalPLantsCount = computed(() => {
   if (!plantsStore.plants) return 0;
+  else if(searchPlants.value){
+    return searchPlants.value.length
+  }
   return plantsStore.plants.length;
 });
 const totalPlantsPages = computed(() => {
@@ -23,7 +26,12 @@ const totalPlantsPages = computed(() => {
 });
 
 const filteredPlants = computed(() => {
-  if (plantsStore.plants) {
+  if (searchPlants.value) {
+    const filtered = searchPlants.value;
+    const start = (currentPage.value - 1) * visiblePlantsCount.value;
+    const end = start + visiblePlantsCount.value;
+    return filtered.slice(start, end);
+  } else if(!searchPlants.value){
     const filtered = plantsStore.plants;
     const start = (currentPage.value - 1) * visiblePlantsCount.value;
     const end = start + visiblePlantsCount.value;
@@ -51,7 +59,8 @@ watch(currentGenus, () => {
       <Empty
         v-if="
           (!plantsStore.isLoading && !plantsStore.plants) ||
-          (plantsStore.plants.length === 0 && !plantsStore.isLoading)
+          (plantsStore.plants.length === 0 && !plantsStore.isLoading) ||
+          (!plantsStore.isLoading && filteredPlants.length === 0)
         "
       />
       <div

@@ -1,4 +1,4 @@
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { defineStore } from "pinia";
 import axios from "axios";
 
@@ -9,8 +9,23 @@ export const usePlantsStore = defineStore("plantsStore", () => {
   const plants = ref();
   const plant = ref();
   const isLoading = ref(false);
-  const currentGenus = ref(localStorage.getItem("currentGenus"));
-  const currentCategory = ref(localStorage.getItem("currentCategory"));
+  const currentGenus = ref(localStorage.getItem("currentGenus") || 1);
+  const currentCategory = ref(localStorage.getItem("currentCategory") || 3);
+  const searchQuery = ref('')
+
+  //getters
+  const searchPlants = computed(() => {
+    if (plants.value && searchQuery.value) {
+      const filtered = plants.value.filter((plant) =>
+        plant.species.name.toLowerCase().includes(searchQuery.value.toLowerCase())
+      );
+      return filtered;
+    } else if(plants.value && searchQuery.value === ''){
+      return plants.value
+    }
+    return [];
+  });
+
 
   //actions
   const throttling = () => {
@@ -123,6 +138,8 @@ export const usePlantsStore = defineStore("plantsStore", () => {
     getPlantById,
     isLoading,
     currentCategory,
-    currentGenus
+    currentGenus,
+    searchPlants,
+    searchQuery
   };
 });
