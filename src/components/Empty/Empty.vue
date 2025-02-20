@@ -10,8 +10,9 @@
 @use "../../assets/sytles/_mixins" as *;
 .empty {
   @include content-box();
-  width: 100%;
-  padding-top: 20px;
+  max-width: 100% !important;
+  padding-top: 20px !important;
+  padding-bottom: 20px !important;
   &__text {
     font-size: 24px;
     text-align: center;

@@ -14,11 +14,10 @@ const { currentGenus, searchPlants, searchQuery } = storeToRefs(plantsStore);
 const currentPage = ref(1);
 const visiblePlantsCount = ref(8);
 
-
 const totalPLantsCount = computed(() => {
   if (!plantsStore.plants) return 0;
-  else if(searchPlants.value){
-    return searchPlants.value.length
+  else if (searchPlants.value) {
+    return searchPlants.value.length;
   }
   return plantsStore.plants.length;
 });
@@ -32,13 +31,13 @@ const filteredPlants = computed(() => {
     const start = (currentPage.value - 1) * visiblePlantsCount.value;
     const end = start + visiblePlantsCount.value;
     return filtered.slice(start, end);
-  } else if(!searchPlants.value){
+  } else if (!searchPlants.value) {
     const filtered = plantsStore.plants;
     const start = (currentPage.value - 1) * visiblePlantsCount.value;
     const end = start + visiblePlantsCount.value;
     return filtered.slice(start, end);
-  } else{
-    return []
+  } else {
+    return [];
   }
 });
 
@@ -48,18 +47,21 @@ const changeCardsPage = (page) => {
 
 watch(currentGenus, () => {
   currentPage.value = 1;
-})
+});
 
 watch(searchQuery, () => {
   currentPage.value = 1;
-})
-
+});
 </script>
 
 <template>
   <div class="container text-center">
     <div class="row row-cols-1 row-cols-md-4 g-4" v-auto-animate>
-      <Skeleton v-if="plantsStore.isLoading && !plantsStore.isTableMode" v-for="i in 4" :key="i" />
+      <Skeleton
+        v-if="plantsStore.isLoading && !plantsStore.isTableMode"
+        v-for="i in 4"
+        :key="i"
+      />
       <Empty
         v-if="
           (!plantsStore.isLoading && !plantsStore.plants) ||
@@ -81,6 +83,7 @@ watch(searchQuery, () => {
           :sort="plant.sort"
           :name="plant.species.name"
           :name-latin="plant.species.name_latin"
+          :key="plant.id"
         />
       </div>
     </div>
@@ -91,7 +94,11 @@ watch(searchQuery, () => {
       class="pagination"
       v-if="!plantsStore.isLoading && totalPlantsPages > 1"
     />
-    <Table v-if="plantsStore.isTableMode && plantsStore.plants.length > 0" :head="['Название', 'Описание', 'Цена']" :body="filteredPlants"/>
+    <Table
+      v-if="plantsStore.isTableMode && plantsStore.plants.length > 0"
+      :head="['Название', 'Описание', 'Цена']"
+      :body="filteredPlants"
+    />
   </div>
 </template>
 
@@ -102,5 +109,29 @@ watch(searchQuery, () => {
 }
 .pagination {
   margin-top: 30px !important;
+}
+.row > * {
+  flex: 1 0 25%;
+  max-width: 25%;
+  padding: 0 15px;
+}
+
+@media (max-width: 1024px) {
+  .row > * {
+    flex: 1 0 33.333%;
+    max-width: 33.333%;
+  }
+}
+@media (max-width: 840px) {
+  .row > * {
+    flex: 1 0 50%;
+    max-width: 50%;
+  }
+}
+@media (max-width: 670px) {
+  .row > * {
+    flex: 1 0 100%;
+    max-width: 100%;
+  }
 }
 </style>
