@@ -9,7 +9,7 @@ import Table from "../Table/Table.vue";
 const plantsStore = usePlantsStore();
 import { storeToRefs } from "pinia";
 
-const { currentGenus, searchPlants } = storeToRefs(plantsStore);
+const { currentGenus, searchPlants, searchQuery } = storeToRefs(plantsStore);
 
 const currentPage = ref(1);
 const visiblePlantsCount = ref(8);
@@ -50,6 +50,9 @@ watch(currentGenus, () => {
   currentPage.value = 1;
 })
 
+watch(searchQuery, () => {
+  currentPage.value = 1;
+})
 
 </script>
 
@@ -88,7 +91,7 @@ watch(currentGenus, () => {
       class="pagination"
       v-if="!plantsStore.isLoading && totalPlantsPages > 1"
     />
-    <Table v-if="plantsStore.isTableMode && filteredPlants" :head="['Название', 'Описание', 'Цена']" :body="filteredPlants"/>
+    <Table v-if="plantsStore.isTableMode && plantsStore.plants.length > 0" :head="['Название', 'Описание', 'Цена']" :body="filteredPlants"/>
   </div>
 </template>
 
