@@ -1,6 +1,5 @@
 <script setup>
 import { usePlantsStore } from "@/stores/plantsStore";
-const plantsStore = usePlantsStore();
 
 const props = defineProps({
   name: {
@@ -46,7 +45,7 @@ const props = defineProps({
     <div class="card-body d-flex flex-column justify-content-between">
       <h5 class="card-title">{{ name }}</h5>
       <p class="card-text">{{ sort ? sort : nameLatin }}</p>
-      <router-link class="card__btn btn btn-primary" @click="plantsStore.getPlantById(id)" :to="/plant/ + id"
+      <router-link class="card__btn btn btn-primary" :to="/plant/ + id"
         >Узнать больше</router-link
       >
     </div>

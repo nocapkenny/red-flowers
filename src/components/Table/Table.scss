@@ -1,0 +1,46 @@
+@use "../../assets/sytles/_vars" as *;
+.table {
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: 30px; 
+  tr{
+    cursor: default;
+  }
+  th,
+  td {
+    padding: 8px;
+    text-align: left;
+  }
+  tr:nth-child(even) td{
+    background-color: $gray;
+  }
+  td span {
+    font-weight: 700;
+    margin-bottom: 5px;
+  }
+  th + th,
+  td+td{
+    border-left: 1px solid $black;
+  }
+  td{
+    border-bottom: none;
+  }
+  th {
+    background-color: $red;
+    color: $white;
+    border-bottom: none;
+  }
+  th:first-child {
+    border-radius: 10px 0 0 0;
+  }
+  th:last-child {
+    border-radius: 0 10px 0 0;
+  }
+}
+.table--shadow{
+  box-shadow: $shadow; 
+  tr {
+    cursor: pointer;
+  }
+}

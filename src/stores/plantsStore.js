@@ -9,9 +9,11 @@ export const usePlantsStore = defineStore("plantsStore", () => {
   const plants = ref();
   const plant = ref();
   const isLoading = ref(false);
+  const isPlantLoading = ref(true)
   const currentGenus = ref(localStorage.getItem("currentGenus") || 1);
   const currentCategory = ref(localStorage.getItem("currentCategory") || 3);
   const searchQuery = ref('')
+  const isTableMode = ref(false)
 
   //getters
   const searchPlants = computed(() => {
@@ -32,6 +34,7 @@ export const usePlantsStore = defineStore("plantsStore", () => {
     //функция для искусственной задержки отображения компонента
     const minLoadingTime = 800;
     isLoading.value = true;
+    isPlantLoading.value = true
     const loadData = new Promise((resolve) => {
       setTimeout(() => {
         resolve();
@@ -42,6 +45,7 @@ export const usePlantsStore = defineStore("plantsStore", () => {
       new Promise((resolve) => setTimeout(resolve, minLoadingTime)),
     ]).then(() => {
       isLoading.value = false;
+      isPlantLoading.value = false
     });
   };
 
@@ -123,7 +127,8 @@ export const usePlantsStore = defineStore("plantsStore", () => {
     } catch (err) {
       console.error(err);
     } finally {
-      console.log(plant.value);
+      console.log(plant.value.img);
+      throttling();
     }
   };
 
@@ -140,6 +145,8 @@ export const usePlantsStore = defineStore("plantsStore", () => {
     currentCategory,
     currentGenus,
     searchPlants,
-    searchQuery
+    searchQuery,
+    isPlantLoading,
+    isTableMode
   };
 });

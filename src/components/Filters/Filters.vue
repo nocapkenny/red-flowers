@@ -6,7 +6,7 @@ import Pagination from "../Pagination/Pagination.vue";
 import { storeToRefs } from "pinia";
 
 const plantsStore = usePlantsStore();
-const { currentCategory, currentGenus } = storeToRefs(plantsStore);
+const { currentCategory, currentGenus, isTableMode } = storeToRefs(plantsStore);
 const visibleGenusesCount = ref(12);
 const currentGenusPage = ref(1);
 
@@ -59,6 +59,11 @@ const changeGenusPage = (page) => {
   currentGenusPage.value = page;
 };
 
+const toggleSwitch = () => {
+  isTableMode.value = !isTableMode.value
+  console.log(isTableMode.value)
+}
+
 onMounted(() => {
   plantsStore.getCategories();
   plantsStore.getGenuses();
@@ -77,6 +82,17 @@ watch(currentCategory, () => {
 <template>
   <div class="filter">
     <p class="filter__title title">Фильтры</p>
+    <div class="form-check form-switch">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        role="switch"
+        :checked="isTableMode"
+        @change="toggleSwitch"
+        id="flexSwitchCheckChecked"
+      />
+      <label :class="isTableMode ? 'form-check-label form-check-label--active' : 'form-check-label'" for="flexSwitchCheckChecked">Режим таблицы</label>
+    </div>
     <div
       class="filter__inner"
       v-for="category in plantsStore.categories"

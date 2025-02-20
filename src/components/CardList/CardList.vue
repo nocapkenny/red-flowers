@@ -5,6 +5,7 @@ import Skeleton from "../Skeleton/Skeleton.vue";
 import Empty from "../Empty/Empty.vue";
 import Card from "../Card/Card.vue";
 import Pagination from "../Pagination/Pagination.vue";
+import Table from "../Table/Table.vue";
 const plantsStore = usePlantsStore();
 import { storeToRefs } from "pinia";
 
@@ -55,7 +56,7 @@ watch(currentGenus, () => {
 <template>
   <div class="container text-center">
     <div class="row row-cols-1 row-cols-md-4 g-4" v-auto-animate>
-      <Skeleton v-if="plantsStore.isLoading" v-for="i in 4" :key="i" />
+      <Skeleton v-if="plantsStore.isLoading && !plantsStore.isTableMode" v-for="i in 4" :key="i" />
       <Empty
         v-if="
           (!plantsStore.isLoading && !plantsStore.plants) ||
@@ -64,7 +65,7 @@ watch(currentGenus, () => {
         "
       />
       <div
-        v-if="!plantsStore.isLoading"
+        v-if="!plantsStore.isLoading && !plantsStore.isTableMode"
         class="col"
         v-for="plant in filteredPlants"
       >
@@ -87,6 +88,7 @@ watch(currentGenus, () => {
       class="pagination"
       v-if="!plantsStore.isLoading && totalPlantsPages > 1"
     />
+    <Table v-if="plantsStore.isTableMode && filteredPlants" :head="['Название', 'Описание', 'Цена']" :body="filteredPlants"/>
   </div>
 </template>
 
