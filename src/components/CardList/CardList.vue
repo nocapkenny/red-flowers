@@ -95,7 +95,7 @@ watch(searchQuery, () => {
       v-if="!plantsStore.isLoading && totalPlantsPages > 1"
     />
     <Table
-      v-if="plantsStore.isTableMode && plantsStore.plants.length > 0"
+      v-if="plantsStore.isTableMode && filteredPlants.length > 0"
       :head="['Название', 'Описание', 'Цена']"
       :body="filteredPlants"
     />
