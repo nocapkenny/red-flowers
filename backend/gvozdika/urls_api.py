@@ -17,6 +17,7 @@ router.register(r'docapp/offeritem', doc_view.OfferItemViewSet,
                 basename='offeritem')
 router.register(r'docapp/counterparty',
                 doc_view.CounterpartyViewSet, basename='counterparty')
+router.register(r'docapp/vacancy', doc_view.VacancyViewSet, basename='vacancy')
 
 router.register(r'stockapp/goods', stock_view.GoodsViewSet, basename='goods')
 urlpatterns = [path('api/', include(router.urls)),

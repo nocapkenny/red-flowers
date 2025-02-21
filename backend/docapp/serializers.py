@@ -2,6 +2,7 @@ from rest_framework import serializers
 from docapp.models import Offer,OfferItem,Counterparty
 from docapp.serializers_base import ModelSerializerId
 from stockapp.models import Goods
+from docapp.models import Vacancy
 
 
 class CounterpartySerializer(serializers.ModelSerializer):
@@ -32,5 +33,9 @@ class OfferItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = OfferItem
         fields = "__all__"
-
+        
+class VacancySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Vacancy
+        fields = "__all__"
 

@@ -17,6 +17,8 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.views.generic import DetailView
 from docapp.models import Offer,OfferItem,Counterparty
 from docapp.serializers import OfferItemSerializer,OfferSerializer,CounterpartySerializer
+from docapp.models import Vacancy
+from docapp.serializers import VacancySerializer
 
 from django.db.models import F,Sum, ExpressionWrapper,DecimalField
 
@@ -89,3 +91,7 @@ class CounterpartyViewSet(viewsets.ModelViewSet):
     filter_backends = (DjangoFilterBackend,OrderingFilter)
     filterset_class  = CounterpartySetFilter
     permission_classes = [IsAuthenticated,DjangoModelPermissions]
+    
+class VacancyViewSet(viewsets.ModelViewSet):
+    queryset = Vacancy.objects.all()
+    serializer_class = VacancySerializer
