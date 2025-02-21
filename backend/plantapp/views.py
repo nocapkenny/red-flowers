@@ -28,6 +28,7 @@ class PlantSetFilter(FilterSet):
     name = CharFilter(method="get_name")
     genus = CharFilter(field_name='species',lookup_expr="genus")
     genus__category = CharFilter(field_name='species',lookup_expr="genus__category")
+    pot_size = CharFilter(field_name='goods__pot__size',lookup_expr="exact")
     def get_name(self,queryset,name,value):
         if value:
             queryset =  queryset.filter(Q(sort__icontains=value)|

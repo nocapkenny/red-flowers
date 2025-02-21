@@ -4,6 +4,8 @@ from plantapp.models import Plant
 from rest_framework import viewsets,permissions
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import OrderingFilter
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from rest_framework.permissions import BasePermission,IsAuthenticated,DjangoModelPermissions
 # Create your views here.
 from rest_framework.decorators import action
@@ -16,9 +18,11 @@ from django_filters import FilterSet,BooleanFilter,CharFilter,MultipleChoiceFilt
 from django.db.models import Q
 from stockapp.models import Goods
 from stockapp.serializers import GoodsSerializer
+from stockapp.serializers import PotSizeSerializer
 
 class GoodsSetFilter(FilterSet):
     search = CharFilter(method="get_search")
+    pot_size = CharFilter(field_name='pot__size',lookup_expr="exact")
     def get_search(self, queryset, name, value):
         if value:
             queryset =  queryset.filter(Q(plant__sort__icontains=value)|
@@ -38,4 +42,11 @@ class GoodsViewSet(viewsets.ModelViewSet):
     filter_backends = (DjangoFilterBackend,OrderingFilter)
     filterset_class  = GoodsSetFilter
     permission_classes = [IsAuthenticated,DjangoModelPermissions]
+    
+class PotSizeListView(APIView):
+    def get(self, request):
+        pot_sizes = Goods.objects.values_list('pot__size', flat=True).distinct()
+        data = [{"pot_size": size} for size in pot_sizes]
+        serializer = PotSizeSerializer(data, many=True)
+        return Response(serializer.data)
 # Create your views here.

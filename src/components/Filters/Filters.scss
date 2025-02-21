@@ -7,13 +7,21 @@
   padding: 30px 20px;
   margin-bottom: 50px;
   align-self: flex-start;
-  &__title {
+  &__title,
+  .filter__pots-title {
     text-align: left;
     font-weight: 700;
     font-size: 18px;
     @media (min-width: 530px) {
       font-size: 24px;
     }
+  }
+  &__pots{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  &__pots-title {
+    margin-top: 20px;
   }
   &__box {
     border-bottom: 2px solid $black;
@@ -64,7 +72,6 @@
     }
   }
 }
-
 
 .form-check-input {
   &:checked {

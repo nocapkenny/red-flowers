@@ -13,6 +13,8 @@ export const usePlantsStore = defineStore("plantsStore", () => {
   const currentCategory = ref(""); //localStorage.getItem("currentCategory") ||
   const searchQuery = ref("");
   const isTableMode = ref(false);
+  const pots = ref();
+  const currentPot = ref("")
 
   //getters
   const searchPlants = computed(() => {
@@ -37,7 +39,7 @@ export const usePlantsStore = defineStore("plantsStore", () => {
     const loadData = new Promise((resolve) => {
       setTimeout(() => {
         resolve();
-      }, 1000);
+      }, 800);
     });
     Promise.all([
       loadData,
@@ -101,26 +103,10 @@ export const usePlantsStore = defineStore("plantsStore", () => {
       console.error(err);
     }
   };
-  // const getPlants = async () => {
-  //   try {
-  //     const filter = {
-  //       category_id: currentCategory.value,
-  //       genus_id: currentGenus.value
-  //     }
-  //     const { data } = await axios.get(
-  //       `/api/plantapp/plant/?genus__category=${filter.category_id}&genus=${filter.genus_id}`
-  //     );
-  //     plants.value = data.results;
-  //   } catch (err) {
-  //     console.error(err);
-  //   } finally {
-  //     console.log(plants.value);
-  //     throttling()
-  //   }
-  // };
   const getPlants = async () => {
     try {
       let allPlants = [];
+      let uniquePlants = new Set();
       let page = 1;
       let hasMorePages = true;
 
@@ -128,6 +114,7 @@ export const usePlantsStore = defineStore("plantsStore", () => {
         const filter = {
           category_id: currentCategory.value,
           genus_id: currentGenus.value,
+          pot_size: currentPot.value
         };
 
         const { data } = await axios.get(`/api/plantapp/plant/`, {
@@ -135,10 +122,17 @@ export const usePlantsStore = defineStore("plantsStore", () => {
             genus__category: filter.category_id,
             genus: filter.genus_id,
             page: page,
+            pot_size: filter.pot_size
           },
         });
 
-        allPlants = allPlants.concat(data.results);
+        for (const plant of data.results) {
+          const uniqueKey = `${plant.species.name}-${plant.min_price}-${plant.min_height}-${plant.min_pot_size}`;
+          if (!uniquePlants.has(uniqueKey)) {
+            uniquePlants.add(uniqueKey);
+            allPlants.push(plant);
+          }
+        }
         hasMorePages = data.next !== null;
         page += 1;
       }
@@ -162,6 +156,21 @@ export const usePlantsStore = defineStore("plantsStore", () => {
     }
   };
 
+  const getPots = async () => {
+    try {
+      const { data } = await axios.get(`/api/stockapp/pot-sizes/`);
+      const uniquePotSizes = new Set(data.map((item) => item.pot_size));
+      const uniquePots = Array.from(uniquePotSizes).map((size) => ({
+        pot_size: size,
+      }));
+      pots.value = uniquePots;
+    } catch (err) {
+      console.error(err);
+    } finally {
+      console.log(pots.value);
+    }
+  };
+
   return {
     categories,
     getCategories,
@@ -177,5 +186,8 @@ export const usePlantsStore = defineStore("plantsStore", () => {
     searchPlants,
     searchQuery,
     isTableMode,
+    getPots,
+    pots,
+    currentPot
   };
 });
