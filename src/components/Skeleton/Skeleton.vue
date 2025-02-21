@@ -30,13 +30,8 @@ export default {
   border-radius: 20px;
   height: 100%;
   cursor: pointer;
-  max-width: 220px;
+  max-width: 190px !important;
   margin-left: 20px;
-  @media (min-width: 600px) {
-    max-width: 280px;
-  }
-  @media (min-width: 560px) {
-    max-width: 250px;
-  }
+  
 }
 </style>

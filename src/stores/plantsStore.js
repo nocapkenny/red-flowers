@@ -9,24 +9,25 @@ export const usePlantsStore = defineStore("plantsStore", () => {
   const plants = ref();
   const plant = ref();
   const isLoading = ref(false);
-  const currentGenus = ref(localStorage.getItem("currentGenus") || 1);
-  const currentCategory = ref(localStorage.getItem("currentCategory") || 1);
-  const searchQuery = ref('')
-  const isTableMode = ref(false)
+  const currentGenus = ref(""); //localStorage.getItem("currentGenus") ||
+  const currentCategory = ref(""); //localStorage.getItem("currentCategory") ||
+  const searchQuery = ref("");
+  const isTableMode = ref(false);
 
   //getters
   const searchPlants = computed(() => {
     if (plants.value && searchQuery.value) {
       const filtered = plants.value.filter((plant) =>
-        plant.species.name.toLowerCase().includes(searchQuery.value.toLowerCase())
+        plant.species.name
+          .toLowerCase()
+          .includes(searchQuery.value.toLowerCase())
       );
       return filtered;
-    } else if(plants.value && searchQuery.value === ''){
-      return plants.value
+    } else if (plants.value && searchQuery.value === "") {
+      return plants.value;
     }
     return [];
   });
-
 
   //actions
   const throttling = () => {
@@ -100,21 +101,54 @@ export const usePlantsStore = defineStore("plantsStore", () => {
       console.error(err);
     }
   };
+  // const getPlants = async () => {
+  //   try {
+  //     const filter = {
+  //       category_id: currentCategory.value,
+  //       genus_id: currentGenus.value
+  //     }
+  //     const { data } = await axios.get(
+  //       `/api/plantapp/plant/?genus__category=${filter.category_id}&genus=${filter.genus_id}`
+  //     );
+  //     plants.value = data.results;
+  //   } catch (err) {
+  //     console.error(err);
+  //   } finally {
+  //     console.log(plants.value);
+  //     throttling()
+  //   }
+  // };
   const getPlants = async () => {
     try {
-      const filter = {
-        category_id: currentCategory.value,
-        genus_id: currentGenus.value
+      let allPlants = [];
+      let page = 1;
+      let hasMorePages = true;
+
+      while (hasMorePages) {
+        const filter = {
+          category_id: currentCategory.value,
+          genus_id: currentGenus.value,
+        };
+
+        const { data } = await axios.get(`/api/plantapp/plant/`, {
+          params: {
+            genus__category: filter.category_id,
+            genus: filter.genus_id,
+            page: page,
+          },
+        });
+
+        allPlants = allPlants.concat(data.results);
+        hasMorePages = data.next !== null;
+        page += 1;
       }
-      const { data } = await axios.get(
-        `/api/plantapp/plant/?page=1&genus__category=${filter.category_id}&genus=${filter.genus_id}`
-      );
-      plants.value = data.results;
+
+      plants.value = allPlants;
     } catch (err) {
       console.error(err);
     } finally {
       console.log(plants.value);
-      throttling()
+      throttling();
     }
   };
   const getPlantById = async (id) => {
@@ -142,6 +176,6 @@ export const usePlantsStore = defineStore("plantsStore", () => {
     currentGenus,
     searchPlants,
     searchQuery,
-    isTableMode
+    isTableMode,
   };
 });

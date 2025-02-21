@@ -1,0 +1,35 @@
+@use "../../assets/sytles/_mixins" as *;
+.catalog {
+  @include bg-section("../../assets/images/catalog-bg.jpg");
+  padding-left: 20px;
+  padding-right: 20px;
+  &__inner {
+    display: flex;
+    @media (max-width: 770px) {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  &__inner--table{
+    @media (max-width: 1040px) {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  &__box{
+    width: 100%;
+    margin-top: 50px;
+  }
+}
+.catalog__inner--table .filter{
+  @media (max-width: 1040px) {
+      align-self: auto;
+    }
+}
+.catalog__inner .filter{
+  @media (max-width: 770px) {
+      align-self: auto;
+    }
+}

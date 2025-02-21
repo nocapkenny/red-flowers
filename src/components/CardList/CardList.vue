@@ -9,10 +9,10 @@ import Table from "../Table/Table.vue";
 const plantsStore = usePlantsStore();
 import { storeToRefs } from "pinia";
 
-const { currentGenus, searchPlants, searchQuery } = storeToRefs(plantsStore);
+const { currentGenus, searchPlants, searchQuery, currentCategory } = storeToRefs(plantsStore);
 
 const currentPage = ref(1);
-const visiblePlantsCount = ref(8);
+const visiblePlantsCount = ref(30);
 
 const totalPLantsCount = computed(() => {
   if (!plantsStore.plants) return 0;
@@ -46,6 +46,9 @@ const changeCardsPage = (page) => {
 };
 
 watch(currentGenus, () => {
+  currentPage.value = 1;
+});
+watch(currentCategory, () => {
   currentPage.value = 1;
 });
 
@@ -87,17 +90,24 @@ watch(searchQuery, () => {
         />
       </div>
     </div>
+    <Table
+      v-if="plantsStore.isTableMode && filteredPlants.length > 0"
+      :head="[
+        'Название',
+        'Латинское название',
+        'Описание',
+        'Высота',
+        'Контейнер',
+        'Цена',
+      ]"
+      :body="filteredPlants"
+    />
     <Pagination
       :currentPage
       :totalPages="totalPlantsPages"
       @changePage="changeCardsPage"
       class="pagination"
       v-if="!plantsStore.isLoading && totalPlantsPages > 1"
-    />
-    <Table
-      v-if="plantsStore.isTableMode && filteredPlants.length > 0"
-      :head="['Название', 'Описание', 'Цена']"
-      :body="filteredPlants"
     />
   </div>
 </template>
@@ -116,22 +126,22 @@ watch(searchQuery, () => {
   padding: 0 15px;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1124px) {
   .row > * {
     flex: 1 0 33.333%;
     max-width: 33.333%;
   }
 }
-@media (max-width: 840px) {
+@media (max-width: 990px) {
   .row > * {
     flex: 1 0 50%;
     max-width: 50%;
   }
 }
-@media (max-width: 670px) {
-  .row > * {
-    flex: 1 0 100%;
-    max-width: 100%;
-  }
-}
+// @media (max-width: 770px) {
+//   .row > * {
+//     flex: 1 0 100%;
+//     max-width: 100%;
+//   }
+// }
 </style>

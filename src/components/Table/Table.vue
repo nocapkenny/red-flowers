@@ -44,8 +44,11 @@ onMounted(() => {
           <span>{{ item.species.genus.name }}</span> <br />
           {{ item.species.name }}
         </td>
+        <td>{{ item.species.name_latin }}</td>
         <td>{{ item.species.description }}</td>
-        <td>от {{ item.goods_set[0].price }}</td>
+        <td> от {{ item.min_height }}</td>
+        <td>от {{ item.min_pot_size }}</td>
+        <td>от {{ item.min_price }}</td>
       </tr>
     </tbody>
   </table>

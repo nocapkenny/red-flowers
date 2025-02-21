@@ -37,11 +37,17 @@ class PlantSerializer(serializers.ModelSerializer):
     detail= serializers.CharField()
     goods_set= GoodsInlineSerializer(read_only=True,many=True)
     min_price = serializers.SerializerMethodField()
+    min_height = serializers.SerializerMethodField()
+    min_pot_size = serializers.SerializerMethodField()
     species_name = serializers.CharField()
     photo_set = PhotoSerializer(read_only=True,many=True)
 
     def get_min_price(self,obj):
         return obj.goods_set.all().order_by('price').first().price
+    def get_min_height(self,obj):
+        return obj.goods_set.all().order_by('height').first().height
+    def get_min_pot_size(self,obj):
+        return obj.goods_set.all().order_by('pot__size').first().pot.size
 
     class Meta:
         model = Plant

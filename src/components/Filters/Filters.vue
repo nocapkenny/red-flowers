@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, watch, computed } from "vue";
+import { onMounted, computed } from "vue";
 import { usePlantsStore } from "@/stores/plantsStore";
 import { ref } from "vue";
 import Pagination from "../Pagination/Pagination.vue";
@@ -18,7 +18,10 @@ const toggleCategory = (id) => {
   } else {
     currentCategory.value = id;
     visibleGenusesCount.value = 12;
-    localStorage.setItem("currentCategory", id);
+    currentGenus.value = ""
+    plantsStore.getPlants()
+    currentGenusPage.value = 1
+    // localStorage.setItem("currentCategory", id);
   }
 };
 const toggleGenus = (id) => {
@@ -26,7 +29,8 @@ const toggleGenus = (id) => {
     currentGenus.value = "";
   } else {
     currentGenus.value = id;
-    localStorage.setItem("currentGenus", id);
+    plantsStore.getPlants()
+    // localStorage.setItem("currentGenus", id);
   }
 };
 
@@ -69,14 +73,7 @@ onMounted(() => {
   plantsStore.getGenuses();
   plantsStore.getPlants();
 });
-watch(currentGenus, () => {
-  if (currentGenus.value) {
-    plantsStore.getPlants();
-  }
-});
-watch(currentCategory, () => {
-  currentGenusPage.value = 1;
-})
+
 </script>
 
 <template>

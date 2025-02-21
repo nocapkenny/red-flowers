@@ -45,6 +45,7 @@ onMounted(()=>{
     outline: none;
     width: 100%;
     padding: 10px;
+    border-radius: 10px;
   }
   &__suggestions {
     list-style: none;
