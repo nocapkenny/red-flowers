@@ -1,8 +1,14 @@
 <script setup>
 import Header from "../../components/Header/Header.vue";
 import GalleryGroup from "../../components/GalleryGroup/GalleryGroup.vue";
+import { useGalleryStore } from "@/stores/galleryStore";
+import { onMounted } from "vue";
+const galleryStore = useGalleryStore();
 
-const galleries = [1, 2, 3, 4, 5, 6, 7, 8, 1, 1, 1, 1];
+
+onMounted(() => {
+  galleryStore.getGalleryCategory();
+})
 </script>
 
 <template>
@@ -10,9 +16,9 @@ const galleries = [1, 2, 3, 4, 5, 6, 7, 8, 1, 1, 1, 1];
   <div class="gallery">
     <div class="container">
       <h3 class="gallery__title title">Галерея</h3>
-      <div class="row row-cols-1 row-cols-md-3 g-4">
-        <div class="col" v-for="gallery in galleries">
-          <GalleryGroup />
+      <div class="row row-cols-1 row-cols-md-3 g-4" v-if="galleryStore.galleryCategory">
+        <div class="col" v-for="gallery in galleryStore.galleryCategory">
+          <GalleryGroup :id="gallery.id" :name="gallery.name" :bg="gallery.first_image"/>
         </div>
       </div>
     </div>

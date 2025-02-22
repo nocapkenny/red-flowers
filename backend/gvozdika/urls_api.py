@@ -20,6 +20,8 @@ router.register(r'docapp/counterparty',
 router.register(r'docapp/vacancy', doc_view.VacancyViewSet, basename='vacancy')
 
 router.register(r'stockapp/goods', stock_view.GoodsViewSet, basename='goods')
+router.register(r'stockapp/gallery-categories', stock_view.GalleryCategoryViewSet, basename='gallery-categories')
+router.register(r'stockapp/gallery-images', stock_view.GalleryImageViewSet, basename='gallery-images')
 urlpatterns = [path('api/', include(router.urls)),
                path('api/stockapp/pot-sizes/',
                     stock_view.PotSizeListView.as_view(), name='pot-sizes'),

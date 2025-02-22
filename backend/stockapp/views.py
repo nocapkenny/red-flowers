@@ -16,9 +16,9 @@ from django_filters import filters
 
 from django_filters import FilterSet,BooleanFilter,CharFilter,MultipleChoiceFilter,DateFilter
 from django.db.models import Q
-from stockapp.models import Goods
-from stockapp.serializers import GoodsSerializer
-from stockapp.serializers import PotSizeSerializer
+from stockapp.models import Goods, GalleryImage, GalleryCategory
+from stockapp.serializers import GoodsSerializer, PotSizeSerializer, GalleryCategorySerializer, GalleryImageSerializer
+
 
 class GoodsSetFilter(FilterSet):
     search = CharFilter(method="get_search")
@@ -49,4 +49,16 @@ class PotSizeListView(APIView):
         data = [{"pot_size": size} for size in pot_sizes]
         serializer = PotSizeSerializer(data, many=True)
         return Response(serializer.data)
-# Create your views here.
+
+class GalleryCategoryViewSet(viewsets.ModelViewSet):
+    queryset = GalleryCategory.objects.all()
+    serializer_class = GalleryCategorySerializer
+     
+
+class GalleryImageViewSet(viewsets.ModelViewSet):
+    queryset = GalleryImage.objects.all()
+    serializer_class = GalleryImageSerializer 
+    filter_backends = (DjangoFilterBackend,)
+    filterset_fields = ['category']
+    
+

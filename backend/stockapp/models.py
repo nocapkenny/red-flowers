@@ -29,3 +29,23 @@ class StorageItem(models.Model):
     storage = models.ForeignKey(Storage,on_delete=models.PROTECT)
     quantity = models.IntegerField()
     goods = models.ForeignKey(Goods,on_delete=models.PROTECT)
+    
+class GalleryCategory(models.Model):
+    name = models.CharField(max_length=255, verbose_name='Название категории')
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        verbose_name = 'Категория галерии'
+        verbose_name_plural = 'Категории галерии'
+        
+class GalleryImage(models.Model):
+    category = models.ForeignKey(GalleryCategory, on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField(upload_to='gallery/', verbose_name='Изображение')
+    
+    def __str__(self):
+        return f"Фото {self.id} ({self.category.name})"
+    
+    class Meta:
+        verbose_name = 'Фотография'
+        verbose_name_plural = 'Фотографии'

@@ -47,6 +47,11 @@ const router = createRouter({
       path:"/plant/:id",
       name: "plant-detail",
       component: () => import("../pages/PlantDetail/PlantDetail.vue"),
+    },
+    {
+      path:"/gallery/:id",
+      name: "gallery-detail",
+      component: () => import("../pages/GalleryDetail/GalleryDetail.vue"),
     }
   ],
 });
