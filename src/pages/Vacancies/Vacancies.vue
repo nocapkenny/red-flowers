@@ -19,6 +19,7 @@ onMounted(() => {
       <div
         class="row row-cols-1 row-cols-md-3 g-4"
         v-if="vacanciesStore.vacancies"
+        v-auto-animate
       >
         <div class="col" v-for="vacancy in vacanciesStore.vacancies">
           <Vacancy

@@ -26,7 +26,7 @@ const filePathsWithNames = files.map((filePath) => {
         зависимости от ситуации на рынке. Чтобы выяснить актуальные цены,
         обращайтесь к специалистам питомника.
       </p>
-      <div class="prices__files" >
+      <div class="prices__files" v-auto-animate>
         <File
           v-for="file in filePathsWithNames"
           :key="file.filePath"

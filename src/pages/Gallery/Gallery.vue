@@ -16,8 +16,8 @@ onMounted(() => {
   <div class="gallery">
     <div class="container">
       <h3 class="gallery__title title">Галерея</h3>
-      <div class="row row-cols-1 row-cols-md-3 g-4" v-if="galleryStore.galleryCategory">
-        <div class="col" v-for="gallery in galleryStore.galleryCategory">
+      <div class="row row-cols-1 row-cols-md-3 g-4" v-if="galleryStore.galleryCategory" v-auto-animate>
+        <div class="col" v-for="gallery in galleryStore.galleryCategory" >
           <GalleryGroup :id="gallery.id" :name="gallery.name" :bg="gallery.first_image"/>
         </div>
       </div>
