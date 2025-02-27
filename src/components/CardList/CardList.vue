@@ -95,10 +95,10 @@ watch(searchQuery, () => {
       :head="[
         'Название',
         'Латинское название',
-        'Описание',
-        'Высота',
         'Контейнер',
+        'Высота',
         'Цена',
+        'Описание',
       ]"
       :body="filteredPlants"
     />
@@ -113,7 +113,7 @@ watch(searchQuery, () => {
 
 <style lang="scss" scoped>
 .container {
-  margin-top: 50px;
+  margin-top: 20px;
   margin-bottom: 50px;
 }
 

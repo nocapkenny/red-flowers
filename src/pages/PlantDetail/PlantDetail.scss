@@ -13,6 +13,9 @@
     display: flex;
     align-items: center;
     min-height: 480px;
+    @media (max-width: 700px) {
+      padding: 0 20px;
+    }
   }
   &__box {
     display: flex;
@@ -86,6 +89,7 @@
       width: 100%;
       margin: 0 auto;
       order: 1;
+      margin-top: 20px;
     }
   }
 }
