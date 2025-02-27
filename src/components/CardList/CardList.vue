@@ -59,7 +59,7 @@ watch(searchQuery, () => {
 
 <template>
   <div class="container text-center">
-    <div class="row row-cols-1 row-cols-md-4 g-4" v-auto-animate>
+    <div class="row row-cols-1 row-cols-md-4" v-auto-animate>
       <Skeleton
         v-if="plantsStore.isLoading && !plantsStore.isTableMode"
         v-for="i in 4"
@@ -106,7 +106,6 @@ watch(searchQuery, () => {
       :currentPage
       :totalPages="totalPlantsPages"
       @changePage="changeCardsPage"
-      class="pagination"
       v-if="!plantsStore.isLoading && totalPlantsPages > 1"
     />
   </div>
@@ -117,13 +116,13 @@ watch(searchQuery, () => {
   margin-top: 50px;
   margin-bottom: 50px;
 }
-.pagination {
-  margin-top: 30px !important;
-}
+
 .row > * {
   flex: 1 0 25%;
   max-width: 25%;
   padding: 0 15px;
+  margin-top: 0;
+  margin-bottom: 20px;
 }
 
 @media (max-width: 1124px) {

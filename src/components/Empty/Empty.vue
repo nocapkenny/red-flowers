@@ -10,6 +10,7 @@
 @use "../../assets/sytles/_mixins" as *;
 .empty {
   @include content-box();
+  margin-top: 0;
   max-width: 100% !important;
   padding-top: 20px !important;
   padding-bottom: 20px !important;
