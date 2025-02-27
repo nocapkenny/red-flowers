@@ -9,6 +9,10 @@ const props = defineProps({
   fileName: {
     type: String,
     required: true,
+  },
+  isActive: {
+    type: Boolean,
+    required: true
   }
 });
 
@@ -27,7 +31,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="file">
+  <div class="file" v-if="isActive">
     <DownloadSvg class="file__svg" />
     <p class="file__name">{{ fileName }}</p>
     <button @click="downloadFile" class="file__btn btn">Скачать</button>

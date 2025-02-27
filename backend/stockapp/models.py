@@ -49,3 +49,15 @@ class GalleryImage(models.Model):
     class Meta:
         verbose_name = 'Фотография'
         verbose_name_plural = 'Фотографии'
+        
+class PriceFile(models.Model):
+    file = models.FileField(upload_to='pricelists/', verbose_name='Прайс-лист')
+    is_active = models.BooleanField(default=True, verbose_name='Активен')
+    uploaded_at = models.DateTimeField(auto_now_add=True, verbose_name='Загружен')
+    
+    def __str__(self):
+        return self.file.name
+    
+    class Meta:
+        verbose_name = 'Прайс-лист'
+        verbose_name_plural = 'Прайс-листы'

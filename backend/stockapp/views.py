@@ -16,8 +16,8 @@ from django_filters import filters
 
 from django_filters import FilterSet,BooleanFilter,CharFilter,MultipleChoiceFilter,DateFilter
 from django.db.models import Q
-from stockapp.models import Goods, GalleryImage, GalleryCategory
-from stockapp.serializers import GoodsSerializer, PotSizeSerializer, GalleryCategorySerializer, GalleryImageSerializer
+from stockapp.models import Goods, GalleryImage, GalleryCategory, PriceFile
+from stockapp.serializers import GoodsSerializer, PotSizeSerializer, GalleryCategorySerializer, GalleryImageSerializer, PriceFileSerializer
 
 
 class GoodsSetFilter(FilterSet):
@@ -60,5 +60,10 @@ class GalleryImageViewSet(viewsets.ModelViewSet):
     serializer_class = GalleryImageSerializer 
     filter_backends = (DjangoFilterBackend,)
     filterset_fields = ['category']
+    
+class PriceFileViewSet(viewsets.ModelViewSet):
+    queryset = PriceFile.objects.all()
+    serializer_class = PriceFileSerializer
+    
     
 

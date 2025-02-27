@@ -1,5 +1,5 @@
 from django.contrib import admin
-from stockapp.models import Pot,Goods, GalleryCategory, GalleryImage
+from stockapp.models import Pot,Goods, GalleryCategory, GalleryImage, PriceFile
 
 # Register your models here.
 
@@ -19,3 +19,9 @@ class GalleryCategoryAdmin(admin.ModelAdmin):
 class GalleryImageAdmin(admin.ModelAdmin):
     list_display = ['id','category','image']
     list_filter = ['category']
+    
+@admin.register(PriceFile)
+class PriceFileAdmin(admin.ModelAdmin):
+    list_display = ('file', 'is_active', 'uploaded_at')
+    list_filter = ('is_active',)
+    search_fields = ('file',)
