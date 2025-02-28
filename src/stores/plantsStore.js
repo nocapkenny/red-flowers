@@ -9,12 +9,12 @@ export const usePlantsStore = defineStore("plantsStore", () => {
   const plants = ref();
   const plant = ref();
   const isLoading = ref(false);
-  const currentGenus = ref(""); //localStorage.getItem("currentGenus") ||
-  const currentCategory = ref(""); //localStorage.getItem("currentCategory") ||
+  const currentGenus = ref(localStorage.getItem("currentGenus")); //localStorage.getItem("currentGenus") ||
+  const currentCategory = ref(localStorage.getItem("currentCategory")); //localStorage.getItem("currentCategory") ||
   const searchQuery = ref("");
   const isTableMode = ref(false);
   const pots = ref();
-  const currentPot = ref("")
+  const currentPot = ref(localStorage.getItem("currentPot"))
 
   //getters
   const searchPlants = computed(() => {
@@ -34,12 +34,12 @@ export const usePlantsStore = defineStore("plantsStore", () => {
   //actions
   const throttling = () => {
     //функция для искусственной задержки отображения компонента
-    const minLoadingTime = 800;
+    const minLoadingTime = 500;
     isLoading.value = true;
     const loadData = new Promise((resolve) => {
       setTimeout(() => {
         resolve();
-      }, 800);
+      }, 600);
     });
     Promise.all([
       loadData,
@@ -141,7 +141,6 @@ export const usePlantsStore = defineStore("plantsStore", () => {
     } catch (err) {
       console.error(err);
     } finally {
-      console.log(plants.value);
       throttling();
     }
   };

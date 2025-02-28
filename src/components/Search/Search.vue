@@ -30,7 +30,7 @@ onMounted(()=>{
         @click="selectOption(option)"
         class="search__suggestions-item"
       >
-        {{ option.species.name }}
+        {{ option.species.genus.category.name }} -> {{ option.species.genus.name }} -> {{ option.species.name }}
       </li>
     </ul>
   </div>

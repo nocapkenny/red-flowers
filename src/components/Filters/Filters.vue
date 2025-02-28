@@ -22,10 +22,12 @@ const toggleCategory = (id) => {
     visibleGenusesCount.value = 12;
     currentGenus.value = "";
     currentPot.value = "";
-    searchQuery.value = ""
+    searchQuery.value = "";
+    localStorage.setItem("currentCategory", id);
+    localStorage.removeItem("currentGenus");
+    localStorage.removeItem("currentPot");
     plantsStore.getPlants();
     currentGenusPage.value = 1;
-    // localStorage.setItem("currentCategory", id);
   }
 };
 const toggleGenus = (id) => {
@@ -34,9 +36,9 @@ const toggleGenus = (id) => {
   } else {
     currentGenus.value = id;
     currentPot.value = "";
-    searchQuery.value = ""
+    searchQuery.value = "";
+    localStorage.setItem("currentGenus", id);
     plantsStore.getPlants();
-    // localStorage.setItem("currentGenus", id);
   }
 };
 const togglePot = (size) => {
@@ -45,9 +47,9 @@ const togglePot = (size) => {
     plantsStore.getPlants();
   } else {
     currentPot.value = size;
-    searchQuery.value = ""
+    searchQuery.value = "";
+    localStorage.setItem("currentPot", size);
     plantsStore.getPlants();
-    console.log(currentPot.value);
   }
 };
 
@@ -106,6 +108,17 @@ const toggleSwitch = () => {
   isTableMode.value = !isTableMode.value;
   console.log(isTableMode.value);
 };
+
+const resetFilters = () => {
+  currentCategory.value = "";
+  currentGenus.value = "";
+  currentPot.value = "";
+  searchQuery.value = "";
+  localStorage.removeItem("currentCategory");
+  localStorage.removeItem("currentGenus");
+  localStorage.removeItem("currentPot");
+  plantsStore.getPlants();
+}
 
 onMounted(() => {
   plantsStore.getCategories();
@@ -200,6 +213,7 @@ onMounted(() => {
       :totalPages="totalPotsPages"
       @changePage="changePotsPage"
     />
+    <button @click="resetFilters" class="filter__btn btn">Сбросить фильтры</button>
   </div>
 </template>
 

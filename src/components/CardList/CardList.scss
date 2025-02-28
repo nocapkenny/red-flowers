@@ -1,0 +1,31 @@
+.container {
+    margin-top: 20px;
+    margin-bottom: 50px;
+  }
+  
+  .row > * {
+    flex: 1 0 25%;
+    max-width: 25%;
+    padding: 0 15px;
+    margin-top: 0;
+    margin-bottom: 20px;
+  }
+  
+  @media (max-width: 1124px) {
+    .row > * {
+      flex: 1 0 33.333%;
+      max-width: 33.333%;
+    }
+  }
+  @media (max-width: 990px) {
+    .row > * {
+      flex: 1 0 50%;
+      max-width: 50%;
+    }
+  }
+  // @media (max-width: 770px) {
+  //   .row > * {
+  //     flex: 1 0 100%;
+  //     max-width: 100%;
+  //   }
+  // }
