@@ -21,9 +21,6 @@ const goToPlant = (id) => {
   plantsStore.isTableMode = false
 }
 
-onMounted(() => {
-  console.log(props.body);
-});
 </script>
 
 <template>

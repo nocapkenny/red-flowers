@@ -31,6 +31,20 @@ export const usePlantsStore = defineStore("plantsStore", () => {
     return [];
   });
 
+  const searchGenuses = computed(() => {
+    if(genuses.value && searchQuery.value){
+      const filtered = genuses.value.filter((genus) =>
+        genus.name
+          .toLowerCase()
+          .includes(searchQuery.value.toLowerCase())
+      );
+      return filtered;
+    } else if (genuses.value && searchQuery.value === "") {
+      return genuses.value;
+    }
+    return [];
+  })
+
   //actions
   const throttling = () => {
     //функция для искусственной задержки отображения компонента
@@ -150,8 +164,6 @@ export const usePlantsStore = defineStore("plantsStore", () => {
       plant.value = data;
     } catch (err) {
       console.error(err);
-    } finally {
-      console.log(plant.value.img);
     }
   };
 
@@ -165,8 +177,6 @@ export const usePlantsStore = defineStore("plantsStore", () => {
       pots.value = uniquePots;
     } catch (err) {
       console.error(err);
-    } finally {
-      console.log(pots.value);
     }
   };
 
@@ -187,6 +197,7 @@ export const usePlantsStore = defineStore("plantsStore", () => {
     isTableMode,
     getPots,
     pots,
-    currentPot
+    currentPot,
+    searchGenuses
   };
 });

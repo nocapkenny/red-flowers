@@ -106,7 +106,6 @@ const changePotsPage = (page) => {
 
 const toggleSwitch = () => {
   isTableMode.value = !isTableMode.value;
-  console.log(isTableMode.value);
 };
 
 const resetFilters = () => {
