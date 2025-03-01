@@ -13,9 +13,12 @@ const selectOption = (option) => {
 
 const selectGenus = (genus) => {
   searchQuery.value = genus.name
-  currentGenus.value = genus.id
   currentCategory.value = genus.category_id
+  currentGenus.value = genus.id
+  localStorage.setItem("currentGenus", genus.id)
+  localStorage.setItem("currentCategory", genus.category_id)
   plantsStore.getPlants()
+  searchQuery.value = ""
 }
 
 </script>
