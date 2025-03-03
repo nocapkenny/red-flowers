@@ -6,6 +6,8 @@
   margin-right: 20px;
   padding: 30px 20px;
   align-self: flex-start;
+  display: flex;
+  flex-direction: column;
   &__title,
   .filter__pots-title {
     text-align: left;
@@ -32,10 +34,8 @@
     margin: 0;
   }
   &__btn {
-    margin-left: 30px;
+    
     font-size: 12px;
-    margin-top: 5px;
-    margin-bottom: 5px;
     @media (min-width: 530px) {
       font-size: 14px;
     }

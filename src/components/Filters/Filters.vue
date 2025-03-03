@@ -122,8 +122,8 @@ const resetFilters = () => {
 onMounted(() => {
   plantsStore.getCategories();
   plantsStore.getGenuses();
-  plantsStore.getPlants();
   plantsStore.getPots();
+  plantsStore.getPlants();
 });
 </script>
 
