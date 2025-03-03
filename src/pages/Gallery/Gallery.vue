@@ -13,7 +13,7 @@ onMounted(() => {
 
 <template>
   <Header />
-  <div class="gallery">
+  <section class="gallery">
     <div class="container">
       <h3 class="gallery__title title">Галерея</h3>
       <div class="row row-cols-1 row-cols-md-3 g-4" v-if="galleryStore.galleryCategory" v-auto-animate>
@@ -22,7 +22,7 @@ onMounted(() => {
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <style lang="scss" scoped>

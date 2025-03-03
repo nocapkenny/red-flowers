@@ -5,11 +5,11 @@ import GalleryList from "@/components/GalleryList/GalleryList.vue";
 
 <template>
   <Header />
-  <div class="gallery-detail">
+  <section class="gallery-detail">
     <div class="container">
       <GalleryList />
     </div>
-  </div>
+  </section>
 </template>
 
 <style lang="scss" scoped>

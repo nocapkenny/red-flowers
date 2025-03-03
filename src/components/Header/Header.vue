@@ -85,15 +85,6 @@ const isMenuOpen = ref(false);
               >Вакансии</router-link
             >
           </li>
-          <!-- <li class="nav-item">
-            <router-link
-              class="nav-link"
-              :class="{ active: $route.path === '/articles' }"
-              to="/articles"
-              @click="isMenuOpen = false"
-              >Статьи</router-link
-            >
-          </li> -->
           <li class="nav-item">
             <router-link
               class="nav-link"

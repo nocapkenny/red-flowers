@@ -18,7 +18,7 @@ const catalogClasses = computed(() => {
 
 <template>
   <Header />
-  <div class="catalog">
+  <section class="catalog">
     <div :class="catalogClasses">
       <Filters />
       <div class="catalog__box">
@@ -26,7 +26,7 @@ const catalogClasses = computed(() => {
         <CardList />
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <style src="./Catalog.scss" lang="scss" />

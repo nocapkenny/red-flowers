@@ -4,9 +4,9 @@ import Header from "../../components/Header/Header.vue";
 
 <template>
   <Header />
-  <div class="about">
+  <section class="about">
     <div class="about__box">
-      <h2 class="about__title title">О питомнике Красная Гвоздика</h2>
+      <h1 class="about__title title">О питомнике Красная Гвоздика</h1>
       <p class="about__text">
         <span>Садовый питомник «Красная гвоздика»</span> был основан в 1997
         году. Имеет 45 га. земли, в том числе 2 га торговых площадей, пленочные
@@ -97,7 +97,7 @@ import Header from "../../components/Header/Header.vue";
       </p>
       <p class="about__descr">Приглашаем всех желающих к сотрудничеству с нами.</p>
     </div>
-  </div>
+  </section>
 </template>
 
 <style src="./About.scss" scoped/>

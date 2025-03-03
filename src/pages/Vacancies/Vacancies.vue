@@ -12,7 +12,7 @@ onMounted(() => {
 
 <template>
   <Header />
-  <div class="vacancies">
+  <section class="vacancies">
     <div class="container">
       <h3 class="vacancies__title title">Вакансии</h3>
       <div
@@ -33,7 +33,7 @@ onMounted(() => {
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <style lang="scss" scoped>

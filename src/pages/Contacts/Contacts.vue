@@ -4,7 +4,7 @@ import Header from "../../components/Header/Header.vue";
 
 <template>
   <Header />
-  <div class="contacts">
+  <section class="contacts">
     <div class="container">
       <h3 class="contacts__title title">Контакты</h3>
       <div class="contacts__inner">
@@ -80,7 +80,7 @@ import Header from "../../components/Header/Header.vue";
       <p class="contacts__box-title contacts__box-title--map">Найти нас</p>
       <img src="../../assets/images/map.jpg" alt="map" class="contacts__map" />
     </div>
-  </div>
+  </section>
 </template>
 
 <style src="./Contacts.scss" scoped />

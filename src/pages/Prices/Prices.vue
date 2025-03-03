@@ -14,7 +14,7 @@ onMounted(() => {
 
 <template>
   <Header />
-  <div class="prices">
+  <section class="prices">
     <div class="prices__box" v-auto-animate>
       <h3 class="prices__title title">Прайс-лист</h3>
       <p class="prices__text">
@@ -33,7 +33,7 @@ onMounted(() => {
         />
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <style src="./Prices.scss" scoped />
