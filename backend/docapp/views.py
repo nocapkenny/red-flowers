@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework import viewsets,permissions
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import OrderingFilter
-from rest_framework.permissions import BasePermission,IsAuthenticated,DjangoModelPermissions
+from rest_framework.permissions import BasePermission,IsAuthenticated,DjangoModelPermissions, DjangoModelPermissionsOrAnonReadOnly
 # Create your views here.
 from rest_framework.decorators import action
 
@@ -95,3 +95,4 @@ class CounterpartyViewSet(viewsets.ModelViewSet):
 class VacancyViewSet(viewsets.ModelViewSet):
     queryset = Vacancy.objects.all()
     serializer_class = VacancySerializer
+    permission_classes = [DjangoModelPermissionsOrAnonReadOnly]

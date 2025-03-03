@@ -6,7 +6,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import OrderingFilter
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.permissions import BasePermission,IsAuthenticated,DjangoModelPermissions
+from rest_framework.permissions import BasePermission,IsAuthenticated,DjangoModelPermissions, DjangoModelPermissionsOrAnonReadOnly
 # Create your views here.
 from rest_framework.decorators import action
 
@@ -44,6 +44,7 @@ class GoodsViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated,DjangoModelPermissions]
     
 class PotSizeListView(APIView):
+    permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
     def get(self, request):
         pot_sizes = Goods.objects.values_list('pot__size', flat=True).distinct()
         data = [{"pot_size": size} for size in pot_sizes]
@@ -53,6 +54,7 @@ class PotSizeListView(APIView):
 class GalleryCategoryViewSet(viewsets.ModelViewSet):
     queryset = GalleryCategory.objects.all()
     serializer_class = GalleryCategorySerializer
+    permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
      
 
 class GalleryImageViewSet(viewsets.ModelViewSet):
@@ -60,10 +62,12 @@ class GalleryImageViewSet(viewsets.ModelViewSet):
     serializer_class = GalleryImageSerializer 
     filter_backends = (DjangoFilterBackend,)
     filterset_fields = ['category']
+    permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
     
 class PriceFileViewSet(viewsets.ModelViewSet):
     queryset = PriceFile.objects.all()
     serializer_class = PriceFileSerializer
+    permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
     
     
 
