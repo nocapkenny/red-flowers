@@ -11,7 +11,6 @@ export const usePriceStore = defineStore("priceStore", () => {
         try {
             const { data } = await axios.get(`/api/stockapp/price-files/`)
             prices.value = data.results;
-            console.log(prices.value)
         } catch(err){
             console.error(err);
         }

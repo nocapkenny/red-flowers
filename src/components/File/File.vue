@@ -25,9 +25,6 @@ const downloadFile = () => {
   document.body.removeChild(link);
 };
 
-onMounted(() => {
-  console.log(props.link);
-})
 </script>
 
 <template>

@@ -7,7 +7,6 @@ const vacanciesStore = useVacanciesStore();
 
 onMounted(() => {
   vacanciesStore.getVacancies();
-  console.log(vacanciesStore.vacancies);
 });
 </script>
 

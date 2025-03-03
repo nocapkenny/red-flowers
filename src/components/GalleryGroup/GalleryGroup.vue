@@ -27,9 +27,6 @@ const goToGallery = () => {
   })
 }
 
-onMounted(() => {
-  console.log(props.bg)
-})
 </script>
 
 <template>

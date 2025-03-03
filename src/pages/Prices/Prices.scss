@@ -9,6 +9,7 @@
   &__box {
     @include content-box();
     padding-bottom: 50px;
+    margin-bottom: 20px;
   }
   &__title {
     margin-top: 30px;

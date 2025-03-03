@@ -40,8 +40,8 @@ const props = defineProps({
 
 <template>
   <div class="card">
-    <img :src="img" class="card-img-top" alt="cardImg" v-if="img !== ''" />
-    <img src="../../assets/images/sample.png"  class="card-img-top" alt="cardImg" v-else/>
+    <img :src="img" class="card-img-top" alt="cardImg" v-if="img !== ''" loading="lazy"/>
+    <img src="../../assets/images/sample.png"  class="card-img-top" alt="cardImg" v-else loading="lazy"/>
     <div class="card-body d-flex flex-column justify-content-between">
       <h5 class="card-title">{{ name }}</h5>
       <p class="card-text">{{ sort ? sort : nameLatin }}</p>

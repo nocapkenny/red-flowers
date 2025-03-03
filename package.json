@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@formkit/auto-animate": "^0.8.2",
+    "@vueuse/head": "^2.0.0",
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
     "pinia": "^2.3.1",

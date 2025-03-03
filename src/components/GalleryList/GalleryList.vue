@@ -7,7 +7,6 @@ const $route = useRoute();
 
 onMounted(() => {
   galleryStore.getGalleryImagesByCategory($route.params.id);
-  console.log(galleryStore.galleryImages);
 });
 </script>
 
