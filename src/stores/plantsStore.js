@@ -9,12 +9,12 @@ export const usePlantsStore = defineStore("plantsStore", () => {
   const plants = ref();
   const plant = ref();
   const isLoading = ref(false);
-  const currentGenus = ref(localStorage.getItem("currentGenus")); //localStorage.getItem("currentGenus") ||
-  const currentCategory = ref(localStorage.getItem("currentCategory")); //localStorage.getItem("currentCategory") ||
+  const currentGenus = ref();
+  const currentCategory = ref();
   const searchQuery = ref("");
   const isTableMode = ref(false);
   const pots = ref();
-  const currentPot = ref(localStorage.getItem("currentPot"))
+  const currentPot = ref()
 
   //getters
   const searchPlants = computed(() => {
@@ -126,9 +126,9 @@ export const usePlantsStore = defineStore("plantsStore", () => {
 
       while (hasMorePages) {
         const filter = {
-          category_id: currentCategory.value,
-          genus_id: currentGenus.value,
-          pot_size: currentPot.value
+          category_id: currentCategory.value || "",
+          genus_id: currentGenus.value || "",
+          pot_size: currentPot.value || ""
         };
 
         const { data } = await axios.get(`/api/plantapp/plant/`, {

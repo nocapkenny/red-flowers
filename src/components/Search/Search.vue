@@ -15,8 +15,6 @@ const selectGenus = (genus) => {
   searchQuery.value = genus.name
   currentCategory.value = genus.category_id
   currentGenus.value = genus.id
-  localStorage.setItem("currentGenus", genus.id)
-  localStorage.setItem("currentCategory", genus.category_id)
   plantsStore.getPlants()
   searchQuery.value = ""
 }

@@ -1,9 +1,12 @@
 <script setup>
-import { onMounted, computed } from "vue";
+import { onMounted, computed, watch } from "vue";
 import { usePlantsStore } from "@/stores/plantsStore";
 import { ref } from "vue";
 import Pagination from "../Pagination/Pagination.vue";
 import { storeToRefs } from "pinia";
+import { useRouter, useRoute } from "vue-router";
+const router = useRouter();
+const route = useRoute();
 
 const plantsStore = usePlantsStore();
 const { currentCategory, currentGenus, isTableMode, currentPot, searchQuery } =
@@ -12,6 +15,22 @@ const visibleGenusesCount = ref(12);
 const visiblePotsCount = ref(30);
 const currentGenusPage = ref(1);
 const currentPotsPage = ref(1);
+
+const updateQuery = () => {
+  const query = {
+    search: searchQuery.value || "",
+  };
+  if (currentCategory.value) query.category = currentCategory.value;
+  if (currentGenus.value) query.genus = currentGenus.value;
+  if (currentPot.value) query.pot = currentPot.value;
+  if (searchQuery.value) query.search = searchQuery.value;
+  if (isTableMode.value) query.tableMode = isTableMode.value.toString();
+
+  router.push({
+    path: "/catalog",
+    query,
+  });
+};
 
 const toggleCategory = (id) => {
   if (currentCategory.value === id) {
@@ -23,12 +42,10 @@ const toggleCategory = (id) => {
     currentGenus.value = "";
     currentPot.value = "";
     searchQuery.value = "";
-    localStorage.setItem("currentCategory", id);
-    localStorage.removeItem("currentGenus");
-    localStorage.removeItem("currentPot");
-    plantsStore.getPlants();
     currentGenusPage.value = 1;
   }
+  plantsStore.getPlants();
+  updateQuery();
 };
 const toggleGenus = (id) => {
   if (currentGenus.value === id) {
@@ -37,9 +54,9 @@ const toggleGenus = (id) => {
     currentGenus.value = id;
     currentPot.value = "";
     searchQuery.value = "";
-    localStorage.setItem("currentGenus", id);
-    plantsStore.getPlants();
   }
+  plantsStore.getPlants();
+  updateQuery();
 };
 const togglePot = (size) => {
   if (currentPot.value === size) {
@@ -48,9 +65,9 @@ const togglePot = (size) => {
   } else {
     currentPot.value = size;
     searchQuery.value = "";
-    localStorage.setItem("currentPot", size);
-    plantsStore.getPlants();
   }
+  plantsStore.getPlants();
+  updateQuery();
 };
 
 //подсчитываем кол-во элементов в родов в категории
@@ -106,6 +123,7 @@ const changePotsPage = (page) => {
 
 const toggleSwitch = () => {
   isTableMode.value = !isTableMode.value;
+  updateQuery();
 };
 
 const resetFilters = () => {
@@ -113,10 +131,8 @@ const resetFilters = () => {
   currentGenus.value = "";
   currentPot.value = "";
   searchQuery.value = "";
-  localStorage.removeItem("currentCategory");
-  localStorage.removeItem("currentGenus");
-  localStorage.removeItem("currentPot");
   plantsStore.getPlants();
+  updateQuery();
 };
 
 // onMounted(() => {
@@ -134,6 +150,12 @@ const resetFilters = () => {
 //   plantsStore.getPots();
 //   plantsStore.getPlants();
 // });
+
+watch(searchQuery, (newValue) => {
+  console.log(newValue)
+  updateQuery();
+});
+
 onMounted(async () => {
   await Promise.all([
     plantsStore.getCategories(),
@@ -142,15 +164,23 @@ onMounted(async () => {
     plantsStore.getPlants(),
   ]);
 
-  const storedCategory = localStorage.getItem("currentCategory");
-  const storedGenus = localStorage.getItem("currentGenus");
+  if (route.query.category) {
+    currentCategory.value = Number(route.query.category);
+  }
+  if (route.query.genus) {
+    currentGenus.value = Number(route.query.genus);
+  }
+  if (route.query.pot) {
+    currentPot.value = route.query.pot;
+  }
+  if (route.query.search) {
+    searchQuery.value = route.query.search;
+  }
+  if (route.query.tableMode) {
+    isTableMode.value = route.query.tableMode === "true";
+  }
 
-  if (storedCategory !== null) {
-    currentCategory.value = Number(storedCategory) || storedCategory;
-  }
-  if (storedGenus !== null) {
-    currentGenus.value = Number(storedGenus) || storedGenus;
-  }
+  await plantsStore.getPlants();
 });
 </script>
 
