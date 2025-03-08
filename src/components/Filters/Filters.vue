@@ -117,13 +117,40 @@ const resetFilters = () => {
   localStorage.removeItem("currentGenus");
   localStorage.removeItem("currentPot");
   plantsStore.getPlants();
-}
+};
 
-onMounted(() => {
-  plantsStore.getCategories();
-  plantsStore.getGenuses();
-  plantsStore.getPots();
-  plantsStore.getPlants();
+// onMounted(() => {
+//   const storedCategory = localStorage.getItem("currentCategory");
+//   const storedGenus = localStorage.getItem("currentGenus");
+
+//   if (storedCategory) {
+//     currentCategory.value = storedCategory;
+//   }
+//   if (storedGenus) {
+//     currentGenus.value = storedGenus;
+//   }
+//   plantsStore.getCategories();
+//   plantsStore.getGenuses();
+//   plantsStore.getPots();
+//   plantsStore.getPlants();
+// });
+onMounted(async () => {
+  await Promise.all([
+    plantsStore.getCategories(),
+    plantsStore.getGenuses(),
+    plantsStore.getPots(),
+    plantsStore.getPlants(),
+  ]);
+
+  const storedCategory = localStorage.getItem("currentCategory");
+  const storedGenus = localStorage.getItem("currentGenus");
+
+  if (storedCategory !== null) {
+    currentCategory.value = Number(storedCategory) || storedCategory;
+  }
+  if (storedGenus !== null) {
+    currentGenus.value = Number(storedGenus) || storedGenus;
+  }
 });
 </script>
 
@@ -212,7 +239,9 @@ onMounted(() => {
       :totalPages="totalPotsPages"
       @changePage="changePotsPage"
     />
-    <button @click="resetFilters" class="filter__btn btn">Сбросить фильтры</button>
+    <button @click="resetFilters" class="filter__btn btn">
+      Сбросить фильтры
+    </button>
   </div>
 </template>
 
