@@ -6,6 +6,19 @@ import { onMounted } from "vue";
 import { storeToRefs } from "pinia";
 const pricesStore = usePriceStore();
 const { prices } = storeToRefs(pricesStore);
+import { useHead } from "@vueuse/head";
+
+useHead({
+  title: 'Питомник "Красная Гвоздика"',
+  meta: [
+    { name: "description", content: 'питомник растений "Красная Гвоздика"' },
+    {
+      name: "keywords",
+      content:
+        "цветы, растения, саженцы, кустарники, деревья, купить саженцы, купить растения",
+    },
+  ],
+});
 
 onMounted(() => {
   pricesStore.getPrices();

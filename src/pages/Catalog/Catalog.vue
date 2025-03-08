@@ -6,6 +6,19 @@ import Filters from "../../components/Filters/Filters.vue";
 import Search from "@/components/Search/Search.vue";
 import { usePlantsStore } from "@/stores/plantsStore";
 const plantsStore = usePlantsStore();
+import { useHead } from "@vueuse/head";
+
+useHead({
+  title: 'Питомник "Красная Гвоздика"',
+  meta: [
+    { name: "description", content: 'питомник растений "Красная Гвоздика"' },
+    {
+      name: "keywords",
+      content:
+        "цветы, растения, саженцы, кустарники, деревья, купить саженцы, купить растения",
+    },
+  ],
+});
 
 const catalogClasses = computed(() => {
   return {

@@ -4,6 +4,19 @@ import Header from "../../components/Header/Header.vue";
 import Vacancy from "../../components/Vacancy/Vacancy.vue";
 import { useVacanciesStore } from "@/stores/vacanciesStore";
 const vacanciesStore = useVacanciesStore();
+import { useHead } from "@vueuse/head";
+
+useHead({
+  title: 'Питомник "Красная Гвоздика"',
+  meta: [
+    { name: "description", content: 'питомник растений "Красная Гвоздика"' },
+    {
+      name: "keywords",
+      content:
+        "цветы, растения, саженцы, кустарники, деревья, купить саженцы, купить растения",
+    },
+  ],
+});
 
 onMounted(() => {
   vacanciesStore.getVacancies();

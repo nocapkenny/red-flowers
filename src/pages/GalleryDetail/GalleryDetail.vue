@@ -1,6 +1,19 @@
 <script setup>
 import Header from "@/components/Header/Header.vue";
 import GalleryList from "@/components/GalleryList/GalleryList.vue";
+import { useHead } from "@vueuse/head";
+
+useHead({
+  title: 'Питомник "Красная Гвоздика"',
+  meta: [
+    { name: "description", content: 'питомник растений "Красная Гвоздика"' },
+    {
+      name: "keywords",
+      content:
+        "цветы, растения, саженцы, кустарники, деревья, купить саженцы, купить растения",
+    },
+  ],
+});
 </script>
 
 <template>

@@ -4,6 +4,19 @@ import GalleryGroup from "../../components/GalleryGroup/GalleryGroup.vue";
 import { useGalleryStore } from "@/stores/galleryStore";
 import { onMounted } from "vue";
 const galleryStore = useGalleryStore();
+import { useHead } from "@vueuse/head";
+
+useHead({
+  title: 'Питомник "Красная Гвоздика"',
+  meta: [
+    { name: "description", content: 'питомник растений "Красная Гвоздика"' },
+    {
+      name: "keywords",
+      content:
+        "цветы, растения, саженцы, кустарники, деревья, купить саженцы, купить растения",
+    },
+  ],
+});
 
 
 onMounted(() => {
