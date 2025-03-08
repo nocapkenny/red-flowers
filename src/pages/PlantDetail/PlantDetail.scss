@@ -2,7 +2,6 @@
 @use "../../assets/sytles/_vars" as *;
 .plant {
   @include bg-section("../../assets/images/catalog-bg.jpg");
-  justify-content: center;
   padding-left: 10px;
   padding-right: 10px;
   &__inner {

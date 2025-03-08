@@ -16,8 +16,8 @@ from django_filters import filters
 
 from django_filters import FilterSet,BooleanFilter,CharFilter,MultipleChoiceFilter,DateFilter
 from django.db.models import Q
-from stockapp.models import Goods, GalleryImage, GalleryCategory, PriceFile
-from stockapp.serializers import GoodsSerializer, PotSizeSerializer, GalleryCategorySerializer, GalleryImageSerializer, PriceFileSerializer
+from stockapp.models import Goods, GalleryImage, GalleryCategory, PriceFile, Pot
+from stockapp.serializers import GoodsSerializer, PotSizeSerializer, GalleryCategorySerializer, GalleryImageSerializer, PriceFileSerializer, PotSizeSerializer
 
 
 class GoodsSetFilter(FilterSet):
@@ -44,6 +44,8 @@ class GoodsViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated,DjangoModelPermissions]
     
 class PotSizeListView(APIView):
+    queryset = Pot.objects.all()
+    serializer_class = PotSizeSerializer
     permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
     def get(self, request):
         pot_sizes = Goods.objects.values_list('pot__size', flat=True).distinct()
