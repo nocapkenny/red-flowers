@@ -1,15 +1,49 @@
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import Header from "../../components/Header/Header.vue";
 import { usePlantsStore } from "@/stores/plantsStore";
 import { onMounted } from "vue";
 import { useRoute } from "vue-router";
 import Loader from "../../components/Loader/Loader.vue";
 import Table from "@/components/Table/Table.vue";
+import { useHead } from "@vueuse/head";
 const plantsStore = usePlantsStore();
 const $route = useRoute();
 
 const isLoading = ref(true);
+
+const headData = computed(() => {
+  const defaultTitle = "Красная Гвоздика";
+  const defaultMeta = [
+    { name: "Растение", content: "Загрузка..." },
+    {
+      name: "keywords",
+      content:
+        "цветы, растения, саженцы, кустарники, деревья, купить саженцы, купить растения",
+    },
+  ];
+
+  if (!isLoading.value && plantsStore.plant && plantsStore.plant.species) {
+    return {
+      title: `Красная Гвоздика. ${plantsStore.plant.species.name}`,
+      meta: [
+        { name: "Растение", content: plantsStore.plant.species.name },
+        {
+          name: "keywords",
+          content:
+            "цветы, растения, саженцы, кустарники, деревья, купить саженцы, купить растения",
+        },
+      ],
+    };
+  }
+
+  return {
+    title: defaultTitle,
+    meta: defaultMeta,
+  };
+});
+
+useHead(headData);
 
 onMounted(async () => {
   try {
