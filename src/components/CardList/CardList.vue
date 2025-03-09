@@ -113,8 +113,8 @@ watch(searchQuery, () => {
         <Card
           :img="plant.img !== null ? plant.img : ''"
           :id="plant.id"
-          :pot="plant.goods_set[0].pot_size"
-          :height="plant.goods_set[0].height"
+          :pot="plant.goods_set && plant.goods_set.length > 0 ? plant.goods_set[0].pot_size || '' : ''"
+          :height="plant.goods_set && plant.goods_set.length > 0 ? plant.goods_set[0].height || '' : ''"
           :descr="plant.description"
           :sort="plant.sort"
           :name="plant.species.name"
