@@ -9,7 +9,7 @@ const router = useRouter();
 const route = useRoute();
 
 const plantsStore = usePlantsStore();
-const { currentCategory, currentGenus, isTableMode, currentPot, searchQuery } =
+const { currentCategory, currentGenus, isTableMode, currentPot, searchQuery, currentPage } =
   storeToRefs(plantsStore);
 const visibleGenusesCount = ref(12);
 const visiblePotsCount = ref(30);
@@ -25,6 +25,7 @@ const updateQuery = () => {
   if (currentPot.value) query.pot = currentPot.value;
   if (searchQuery.value) query.search = searchQuery.value;
   if (isTableMode.value) query.tableMode = isTableMode.value.toString();
+  if (currentPage.value) query.page = currentPage.value;
 
   router.push({
     path: "/catalog",
@@ -41,6 +42,7 @@ const toggleCategory = (id) => {
     visibleGenusesCount.value = 12;
     currentGenus.value = "";
     currentPot.value = "";
+    currentPage.value = 1
     searchQuery.value = "";
     currentGenusPage.value = 1;
   }
@@ -54,6 +56,7 @@ const toggleGenus = (id) => {
     currentGenus.value = id;
     currentPot.value = "";
     searchQuery.value = "";
+    currentPage.value = 1
   }
   plantsStore.getPlants();
   updateQuery();
@@ -61,10 +64,10 @@ const toggleGenus = (id) => {
 const togglePot = (size) => {
   if (currentPot.value === size) {
     currentPot.value = "";
-    plantsStore.getPlants();
   } else {
     currentPot.value = size;
     searchQuery.value = "";
+    currentPage.value = 1
   }
   plantsStore.getPlants();
   updateQuery();
@@ -131,6 +134,7 @@ const resetFilters = () => {
   currentGenus.value = "";
   currentPot.value = "";
   searchQuery.value = "";
+  currentPage.value = 1;
   plantsStore.getPlants();
   updateQuery();
 };
@@ -178,6 +182,9 @@ onMounted(async () => {
   }
   if (route.query.tableMode) {
     isTableMode.value = route.query.tableMode === "true";
+  }
+  if (route.query.page){
+    currentPage.value = Number(route.query.page)
   }
 
   await plantsStore.getPlants();

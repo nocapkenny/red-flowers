@@ -8,41 +8,73 @@ import Pagination from "../Pagination/Pagination.vue";
 import Table from "../Table/Table.vue";
 const plantsStore = usePlantsStore();
 import { storeToRefs } from "pinia";
+import { useRouter, useRoute } from "vue-router";
+const router = useRouter();
 
-const { currentGenus, searchPlants, searchQuery, currentCategory } = storeToRefs(plantsStore);
 
-const currentPage = ref(1);
-const visiblePlantsCount = ref(30);
+const { currentGenus, searchPlants, searchQuery, currentCategory, currentPage, totalPages, currentPot, isTableMode } = storeToRefs(plantsStore);
 
-const totalPLantsCount = computed(() => {
-  if (!plantsStore.plants) return 0;
-  else if (searchPlants.value) {
-    return searchPlants.value.length;
-  }
-  return plantsStore.plants.length;
-});
-const totalPlantsPages = computed(() => {
-  return Math.ceil(totalPLantsCount.value / visiblePlantsCount.value);
-});
+const updateQuery = () => {
+  const query = {
+    search: searchQuery.value || "",
+  };
+  if (currentCategory.value) query.category = currentCategory.value;
+  if (currentGenus.value) query.genus = currentGenus.value;
+  if (currentPot.value) query.pot = currentPot.value;
+  if (searchQuery.value) query.search = searchQuery.value;
+  if (isTableMode.value) query.tableMode = isTableMode.value.toString();
+  if (currentPage.value) query.page = currentPage.value;
 
+  router.push({
+    path: "/catalog",
+    query,
+  });
+};
+
+// const visiblePlantsCount = ref(50);
+
+// const totalPLantsCount = computed(() => {
+//   if (!plantsStore.plants) return 0;
+//   else if (searchPlants.value) {
+//     return searchPlants.value.length;
+//   }
+//   return plantsStore.plants.length;
+// });
+// const totalPlantsPages = computed(() => {
+//   return Math.ceil(totalPLantsCount.value / visiblePlantsCount.value);
+// });
+
+// const filteredPlants = computed(() => {
+//   if (searchPlants.value) {
+//     const filtered = searchPlants.value;
+//     const start = (currentPage.value - 1) * visiblePlantsCount.value;
+//     const end = start + visiblePlantsCount.value;
+//     return filtered.slice(start, end);
+//   } else if (!searchPlants.value) {
+//     const filtered = plantsStore.plants;
+//     const start = (currentPage.value - 1) * visiblePlantsCount.value;
+//     const end = start + visiblePlantsCount.value;
+//     return filtered.slice(start, end);
+//   } else {
+//     return [];
+//   }
+// });
 const filteredPlants = computed(() => {
   if (searchPlants.value) {
     const filtered = searchPlants.value;
-    const start = (currentPage.value - 1) * visiblePlantsCount.value;
-    const end = start + visiblePlantsCount.value;
-    return filtered.slice(start, end);
+    return filtered;
   } else if (!searchPlants.value) {
     const filtered = plantsStore.plants;
-    const start = (currentPage.value - 1) * visiblePlantsCount.value;
-    const end = start + visiblePlantsCount.value;
-    return filtered.slice(start, end);
+    return filtered;
   } else {
     return [];
   }
-});
+})
 
 const changeCardsPage = (page) => {
   currentPage.value = page;
+  plantsStore.getPlants();
+  updateQuery();
 };
 
 watch(currentGenus, () => {
@@ -55,6 +87,7 @@ watch(currentCategory, () => {
 watch(searchQuery, () => {
   currentPage.value = 1;
 });
+
 </script>
 
 <template>
@@ -104,9 +137,9 @@ watch(searchQuery, () => {
     />
     <Pagination
       :currentPage
-      :totalPages="totalPlantsPages"
+      :totalPages="totalPages"
       @changePage="changeCardsPage"
-      v-if="!plantsStore.isLoading && totalPlantsPages > 1"
+      v-if="!plantsStore.isLoading && totalPages > 1"
     />
   </div>
 </template>

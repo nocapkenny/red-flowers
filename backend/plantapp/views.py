@@ -15,6 +15,7 @@ from django_filters import filters
 
 from django_filters import FilterSet,BooleanFilter,CharFilter,MultipleChoiceFilter,DateFilter
 from django.db.models import Q
+from gvozdika.pagination import PageNumberPaginationWithCount
 # Create your views here.
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
@@ -43,11 +44,12 @@ class PlantSetFilter(FilterSet):
         exclude = ['img']
 
 class PlantViewSet(viewsets.ModelViewSet):
-    queryset = Plant.objects.all()
+    queryset = Plant.objects.all().order_by('id')
     model = Plant
     serializer_class = PlantSerializer
     filter_backends = (DjangoFilterBackend,OrderingFilter)
     filterset_class  = PlantSetFilter
+    pagination_class = PageNumberPaginationWithCount
     permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
     # permission_classes = [IsAuthenticated,DjangoModelPermissions]
 class GenusSetFilter(FilterSet):

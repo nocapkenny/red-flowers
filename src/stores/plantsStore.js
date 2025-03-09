@@ -14,7 +14,9 @@ export const usePlantsStore = defineStore("plantsStore", () => {
   const searchQuery = ref("");
   const isTableMode = ref(false);
   const pots = ref();
-  const currentPot = ref()
+  const currentPot = ref();
+  const currentPage = ref(1)
+  const totalPages = ref(0)
 
   //getters
   const searchPlants = computed(() => {
@@ -32,18 +34,16 @@ export const usePlantsStore = defineStore("plantsStore", () => {
   });
 
   const searchGenuses = computed(() => {
-    if(genuses.value && searchQuery.value){
+    if (genuses.value && searchQuery.value) {
       const filtered = genuses.value.filter((genus) =>
-        genus.name
-          .toLowerCase()
-          .includes(searchQuery.value.toLowerCase())
+        genus.name.toLowerCase().includes(searchQuery.value.toLowerCase())
       );
       return filtered;
     } else if (genuses.value && searchQuery.value === "") {
       return genuses.value;
     }
     return [];
-  })
+  });
 
   //actions
   const throttling = () => {
@@ -121,36 +121,31 @@ export const usePlantsStore = defineStore("plantsStore", () => {
     try {
       let allPlants = [];
       let uniquePlants = new Set();
-      let page = 1;
-      let hasMorePages = true;
+      const filter = {
+        category_id: currentCategory.value || "",
+        genus_id: currentGenus.value || "",
+        pot_size: currentPot.value || "",
+        page: currentPage.value || 1
+      };
 
-      while (hasMorePages) {
-        const filter = {
-          category_id: currentCategory.value || "",
-          genus_id: currentGenus.value || "",
-          pot_size: currentPot.value || ""
-        };
+      const { data } = await axios.get(`/api/plantapp/plant/`, {
+        params: {
+          genus__category: filter.category_id,
+          genus: filter.genus_id,
+          page: filter.page,
+          pot_size: filter.pot_size,
+        },
+      });
 
-        const { data } = await axios.get(`/api/plantapp/plant/`, {
-          params: {
-            genus__category: filter.category_id,
-            genus: filter.genus_id,
-            page: page,
-            pot_size: filter.pot_size
-          },
-        });
-
-        for (const plant of data.results) {
-          const uniqueKey = `${plant.species.name}-${plant.min_price}-${plant.min_height}-${plant.min_pot_size}`;
-          if (!uniquePlants.has(uniqueKey)) {
-            uniquePlants.add(uniqueKey);
-            allPlants.push(plant);
-          }
+      for (const plant of data.results) {
+        const uniqueKey = `${plant.species.name}-${plant.min_price}-${plant.min_height}-${plant.min_pot_size}`;
+        if (!uniquePlants.has(uniqueKey)) {
+          uniquePlants.add(uniqueKey);
+          allPlants.push(plant);
         }
-        hasMorePages = data.next !== null;
-        page += 1;
       }
 
+      totalPages.value = data.totalPages
       plants.value = allPlants;
     } catch (err) {
       console.error(err);
@@ -198,6 +193,8 @@ export const usePlantsStore = defineStore("plantsStore", () => {
     getPots,
     pots,
     currentPot,
-    searchGenuses
+    searchGenuses,
+    currentPage,
+    totalPages
   };
 });

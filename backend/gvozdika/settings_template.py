@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'django_extensions',
+    'easy_thumbnails',
+    'docapp',
 ]
 
 MIDDLEWARE = [
@@ -71,6 +73,13 @@ TEMPLATES = [
         },
     },
 ]
+
+THUMBNAIL_ALIASES ={
+    '':{
+        'preview':{'size':(200,200),'crop':True},
+        'detail':{'size':(400,400),'crop':True},
+    },
+}
 
 WSGI_APPLICATION = 'gvozdika.wsgi.application'
 
