@@ -125,7 +125,8 @@ export const usePlantsStore = defineStore("plantsStore", () => {
         category_id: currentCategory.value || "",
         genus_id: currentGenus.value || "",
         pot_size: currentPot.value || "",
-        page: currentPage.value || 1
+        page: currentPage.value || 1,
+        search: searchQuery.value || "",
       };
 
       const { data } = await axios.get(`/api/plantapp/plant/`, {
@@ -134,6 +135,7 @@ export const usePlantsStore = defineStore("plantsStore", () => {
           genus: filter.genus_id,
           page: filter.page,
           pot_size: filter.pot_size,
+          search: filter.search
         },
       });
 

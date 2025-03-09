@@ -8,11 +8,20 @@ import Pagination from "../Pagination/Pagination.vue";
 import Table from "../Table/Table.vue";
 const plantsStore = usePlantsStore();
 import { storeToRefs } from "pinia";
-import { useRouter, useRoute } from "vue-router";
+import { useRouter } from "vue-router";
 const router = useRouter();
+import { debounce } from "lodash";
 
-
-const { currentGenus, searchPlants, searchQuery, currentCategory, currentPage, totalPages, currentPot, isTableMode } = storeToRefs(plantsStore);
+const {
+  currentGenus,
+  searchPlants,
+  searchQuery,
+  currentCategory,
+  currentPage,
+  totalPages,
+  currentPot,
+  isTableMode,
+} = storeToRefs(plantsStore);
 
 const updateQuery = () => {
   const query = {
@@ -59,17 +68,19 @@ const updateQuery = () => {
 //     return [];
 //   }
 // });
-const filteredPlants = computed(() => {
-  if (searchPlants.value) {
-    const filtered = searchPlants.value;
-    return filtered;
-  } else if (!searchPlants.value) {
-    const filtered = plantsStore.plants;
-    return filtered;
-  } else {
-    return [];
-  }
-})
+// const filteredPlants = computed(() => {
+//   if (searchPlants.value) {
+//     const filtered = searchPlants.value;
+//     return filtered;
+//   } else if (!searchPlants.value) {
+//     const filtered = plantsStore.plants;
+//     return filtered;
+//   } else {
+//     return [];
+//   }
+// })
+
+const filteredPlants = computed(() => plantsStore.plants || []);
 
 const changeCardsPage = (page) => {
   currentPage.value = page;
@@ -84,10 +95,17 @@ watch(currentCategory, () => {
   currentPage.value = 1;
 });
 
-watch(searchQuery, () => {
-  currentPage.value = 1;
-});
-
+// watch(searchQuery, () => {
+//   currentPage.value = 1;
+//   plantsStore.getPlants();
+// });
+watch(
+  searchQuery,
+  debounce(() => {
+    currentPage.value = 1;
+    plantsStore.getPlants();
+  }, 500) 
+);
 </script>
 
 <template>
@@ -113,8 +131,16 @@ watch(searchQuery, () => {
         <Card
           :img="plant.img !== null ? plant.img : ''"
           :id="plant.id"
-          :pot="plant.goods_set && plant.goods_set.length > 0 ? plant.goods_set[0].pot_size || '' : ''"
-          :height="plant.goods_set && plant.goods_set.length > 0 ? plant.goods_set[0].height || '' : ''"
+          :pot="
+            plant.goods_set && plant.goods_set.length > 0
+              ? plant.goods_set[0].pot_size || ''
+              : ''
+          "
+          :height="
+            plant.goods_set && plant.goods_set.length > 0
+              ? plant.goods_set[0].height || ''
+              : ''
+          "
           :descr="plant.description"
           :sort="plant.sort"
           :name="plant.species.name"
@@ -144,5 +170,4 @@ watch(searchQuery, () => {
   </div>
 </template>
 
-<style src="./CardList.scss" scoped/>
-
+<style src="./CardList.scss" scoped />
