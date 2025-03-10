@@ -1,0 +1,23 @@
+@use "../../assets/sytles/_vars" as *;
+
+.breadcrumbs {
+    font-size: 14px;
+    color: $black;
+    margin-bottom: 10px;
+    text-align: left;
+  
+  &__link {
+    color: $black;
+    cursor: pointer;
+  }
+  
+  &__link:hover {
+    color: $red;
+  }
+  
+  &__current {
+    color: $black;
+    font-weight: 700;
+  }
+  
+}

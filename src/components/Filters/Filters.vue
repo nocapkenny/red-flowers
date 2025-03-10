@@ -3,6 +3,7 @@ import { onMounted, computed, watch } from "vue";
 import { usePlantsStore } from "@/stores/plantsStore";
 import { ref } from "vue";
 import Pagination from "../Pagination/Pagination.vue";
+import Breadcrumbs from "../Breadcrumbs/Breadcrumbs.vue";
 import { storeToRefs } from "pinia";
 import { useRouter, useRoute } from "vue-router";
 const router = useRouter();
@@ -189,10 +190,12 @@ onMounted(async () => {
 
   await plantsStore.getPlants();
 });
+
 </script>
 
 <template>
   <div class="filter">
+    <Breadcrumbs/>
     <p class="filter__title title">Фильтры</p>
     <div class="form-check form-switch">
       <input

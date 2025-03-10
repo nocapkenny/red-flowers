@@ -8,8 +8,9 @@ import Pagination from "../Pagination/Pagination.vue";
 import Table from "../Table/Table.vue";
 const plantsStore = usePlantsStore();
 import { storeToRefs } from "pinia";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 const router = useRouter();
+const route = useRoute();
 import { debounce } from "lodash";
 
 const {
@@ -99,6 +100,7 @@ watch(currentCategory, () => {
 //   currentPage.value = 1;
 //   plantsStore.getPlants();
 // });
+
 watch(
   searchQuery,
   debounce(() => {

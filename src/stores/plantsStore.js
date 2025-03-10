@@ -1,4 +1,4 @@
-import { ref, computed } from "vue";
+import { ref, computed, watch } from "vue";
 import { defineStore } from "pinia";
 import axios from "axios";
 
@@ -15,8 +15,8 @@ export const usePlantsStore = defineStore("plantsStore", () => {
   const isTableMode = ref(false);
   const pots = ref();
   const currentPot = ref();
-  const currentPage = ref(1)
-  const totalPages = ref(0)
+  const currentPage = ref(1);
+  const totalPages = ref(0);
 
   //getters
   const searchPlants = computed(() => {
@@ -43,6 +43,24 @@ export const usePlantsStore = defineStore("plantsStore", () => {
       return genuses.value;
     }
     return [];
+  });
+
+  const genusName = computed(() => {
+    if (!currentGenus.value || !genuses.value) {
+      return "";
+    }
+    const genus = genuses.value.find((g) => g.id === currentGenus.value);
+    return genus ? genus.name : "";
+  });
+
+  const categoryName = computed(() => {
+    if (!currentCategory.value || !categories.value) {
+      return "";
+    }
+    const category = categories.value.find(
+      (c) => c.id === currentCategory.value
+    );
+    return category ? category.name : "";
   });
 
   //actions
@@ -119,7 +137,7 @@ export const usePlantsStore = defineStore("plantsStore", () => {
   };
   const getPlants = async () => {
     try {
-      let allPlants = [];
+      let allPlants = []
       let uniquePlants = new Set();
       const filter = {
         category_id: currentCategory.value || "",
@@ -135,7 +153,7 @@ export const usePlantsStore = defineStore("plantsStore", () => {
           genus: filter.genus_id,
           page: filter.page,
           pot_size: filter.pot_size,
-          search: filter.search
+          search: filter.search,
         },
       });
 
@@ -197,6 +215,8 @@ export const usePlantsStore = defineStore("plantsStore", () => {
     currentPot,
     searchGenuses,
     currentPage,
-    totalPages
+    totalPages,
+    genusName,
+    categoryName,
   };
 });
