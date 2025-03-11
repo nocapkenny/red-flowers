@@ -82,6 +82,17 @@ onMounted(async () => {
           <p class="plant__text">
             {{ plantsStore.plant.species.description }}
           </p>
+          <p class="plant__text" >
+            {{ plantsStore.plant.description }}
+          </p>
+          <p class="plant__text" v-if="plantsStore.plant.technology">
+          <h2> Агротехника </h2>
+            {{ plantsStore.plant.technology }}
+          </p>
+          <p class="plant__text" v-if="plantsStore.plant.usage">
+          <h2> Использование </h2>
+            {{ plantsStore.plant.usage }}
+          </p>
         </div>
         <div class="plant__table">
           <Table
