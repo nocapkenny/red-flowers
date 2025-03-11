@@ -131,7 +131,7 @@ watch(
         v-for="plant in filteredPlants"
       >
         <Card
-          :img="plant.img !== null ? plant.img : ''"
+          :img="plant.previe	 !== null ? plant.preview	 : ''"
           :id="plant.id"
           :pot="
             plant.goods_set && plant.goods_set.length > 0
