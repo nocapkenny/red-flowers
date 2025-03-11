@@ -1,14 +1,17 @@
 <script setup>
-import { ref, computed, onMounted } from "vue";
+import { ref, computed, onMounted, watch } from "vue";
 import { usePlantsStore } from "@/stores/plantsStore";
 import { storeToRefs } from "pinia";
 const plantsStore = usePlantsStore();
 
 const { searchQuery, searchPlants, searchGenuses, categories, currentCategory, currentGenus } = storeToRefs(plantsStore)
 
+const isSelected = ref(true)
+
 
 const selectOption = (option) => {
   searchQuery.value = option.species.name;
+  isSelected.value = true
 };
 
 const selectGenus = (genus) => {
@@ -19,6 +22,14 @@ const selectGenus = (genus) => {
   searchQuery.value = ""
 }
 
+watch(searchQuery, () => {
+  if (searchQuery.value.length > 0) {
+    isSelected.value = false
+  } else if(searchQuery.value.length === 0) {
+    isSelected.value = true
+  }
+})
+
 </script>
 
 <template>
@@ -28,7 +39,7 @@ const selectGenus = (genus) => {
       placeholder="Поиск растений..."
       class="search__input"
     />
-    <ul v-if="searchQuery.length > 0" class="search__suggestions" >
+    <ul v-if="!isSelected" class="search__suggestions" >
       <li
         v-for="option in searchGenuses"
         :key="option.id"

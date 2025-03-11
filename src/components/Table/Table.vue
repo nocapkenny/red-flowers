@@ -16,6 +16,14 @@ const props = defineProps({
   },
 });
 
+const formatPrice = (price) => {
+  if (price == null || isNaN(price)) return "0,00";
+  return Number(price).toLocaleString("ru-RU", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+};
+
 const goToPlant = (id) => {
   $router.push({name:'plant-detail',params:{id}})
   plantsStore.isTableMode = false
@@ -34,7 +42,7 @@ const goToPlant = (id) => {
       <tr v-for="item in body" v-if="!plantsStore.isTableMode">
         <td>{{ item.height }}</td>
         <td>{{ item.pot_size }}</td>
-        <td>{{ item.price }}</td>
+        <td>{{ formatPrice(item.price) }}</td>
       </tr>
       <tr @click="goToPlant(item.id)" v-for="item in body" v-else>
         <td>
@@ -44,7 +52,7 @@ const goToPlant = (id) => {
         <td>{{ item.species.name_latin }}</td>
         <td>от {{ item.min_pot_size }}</td>
         <td> от {{ item.min_height }}</td>
-        <td>от {{ item.min_price }}</td>
+        <td>от {{ formatPrice(item.min_price) }}</td>
         <td>{{ item.species.description }}</td>
       </tr>
     </tbody>

@@ -1,23 +1,38 @@
 @use "../../assets/sytles/_vars" as *;
-.card{
-    box-shadow: $shadow;
-    border-radius: 20px;
-    height: 100%;
-    cursor: pointer;
-    transition: all ease .5s;
-    justify-content: space-between !important;
-    &:hover{
-        box-shadow: $shadow-hover;
+.card {
+  box-shadow: $shadow;
+  border-radius: 20px;
+  height: 100%;
+  cursor: pointer;
+  transition: all ease 0.5s;
+  justify-content: space-between !important;
+  &:hover {
+    box-shadow: $shadow-hover;
+  }
+  &-title {
+    font-size: 16px;
+    @media (min-width: 767px) {
+      font-size: 1.25rem;
     }
-    &-img-top{
-        border-radius: 20px 20px 0 0;
-        max-height: 250px !important;
+  }
+  &-img-top {
+    border-radius: 20px 20px 0 0;
+    max-height: 250px !important;
+  }
+  &-text {
+    opacity: 0.8;
+    font-size: 14px;
+    @media (min-width: 767px) {
+      font-size: 16px;
     }
-    &-text{
-        opacity: 0.8;
+  }
+  &__spec span {
+    font-weight: 700;
+  }
+  &__btn {
+    font-size: 14px;
+    @media (min-width: 767px) {
+      font-size: 16px;
     }
-    &__spec span {
-        font-weight: 700;
-    }
-    
+  }
 }

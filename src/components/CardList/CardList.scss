@@ -23,9 +23,13 @@
       max-width: 50%;
     }
   }
-  // @media (max-width: 770px) {
-  //   .row > * {
-  //     flex: 1 0 100%;
-  //     max-width: 100%;
-  //   }
-  // }
+  @media (max-width: 767px) {
+    .row > * {
+      flex: 1 0 100%;
+      max-width: 250px;
+    }
+    .row{
+      justify-content: center !important;
+    }
+  }
+  
