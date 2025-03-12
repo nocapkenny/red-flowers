@@ -1,23 +1,41 @@
 @use "../../assets/sytles/_vars" as *;
 
 .breadcrumbs {
+  font-size: 14px;
+  color: $white;
+  text-align: left;
+  margin-top: 10px;
+  text-align: center;
+  margin-bottom: 10px;
+  &--table {
     font-size: 14px;
-    color: $black;
-    margin-bottom: 10px;
+    color: $white;
     text-align: left;
-  
+    margin-top: 10px;
+    text-align: center;
+    margin-bottom: 10px;
+    @media (min-width: 1200px) {
+      text-align: unset;
+      margin-top: 20px;
+      margin-bottom: 0;
+    }
+  }
   &__link {
-    color: $black;
+    color: $white;
     cursor: pointer;
   }
-  
+
   &__link:hover {
     color: $red;
   }
-  
+
   &__current {
-    color: $black;
+    color: $white;
     font-weight: 700;
   }
-  
+  @media (min-width: 770px) {
+    text-align: unset;
+    margin-top: 20px;
+    margin-bottom: 0;
+  }
 }

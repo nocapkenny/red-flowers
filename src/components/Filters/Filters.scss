@@ -15,15 +15,19 @@
     margin-right: 20px;
     padding: 30px 20px;
   }
+  &__title {
+    margin-bottom: 0;
+    @media (min-width: 767px) {
+      margin-bottom: 10px;
+    }
+  }
   &__title,
   .filter__pots-title {
     text-align: left;
     font-weight: 700;
     font-size: 18px;
-    margin-bottom: 10px;
     @media (min-width: 767px) {
       font-size: 22px;
-      margin-bottom: 20px;
     }
   }
   &__pots {
@@ -31,8 +35,10 @@
     grid-template-columns: repeat(2, 1fr);
   }
   &__pots-title {
-    margin-top: 10px;
+    margin-top: 0;
+    margin-bottom: 5px;
     @media (min-width: 767px) {
+      margin-top: 10px;
       margin-bottom: 20px;
     }
   }
@@ -105,7 +111,7 @@
     font-size: 16px;
     font-weight: 700;
     @media (min-width: 767px) {
-      font-size: 22px;
+      font-size: 20px;
     }
   }
 }

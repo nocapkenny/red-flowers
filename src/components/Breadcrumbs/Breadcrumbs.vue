@@ -41,7 +41,7 @@ const navigate = (path) => {
 </script>
 
 <template>
-    <nav class="breadcrumbs">
+    <nav :class="isTableMode ? 'breadcrumbs--table' : 'breadcrumbs'">
     <span v-for="(crumb, index) in breadcrumbs" :key="index" class="breadcrumbs__item">
       <span
         v-if="index < breadcrumbs.length - 1"
@@ -53,7 +53,7 @@ const navigate = (path) => {
       <span v-else class="breadcrumbs__current">
         {{ crumb.name }}
       </span>
-      <span v-if="index < breadcrumbs.length - 1" class="breadcrumbs__separator"> → </span>
+      <span v-if="index < breadcrumbs.length - 1" class="breadcrumbs__separator"> > </span>
     </span>
   </nav>
 </template>
