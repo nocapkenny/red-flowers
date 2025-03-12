@@ -1,4 +1,4 @@
-import { ref, computed, watch } from "vue";
+import { ref, computed } from "vue";
 import { defineStore } from "pinia";
 import axios from "axios";
 
@@ -65,22 +65,6 @@ export const usePlantsStore = defineStore("plantsStore", () => {
   });
 
   //actions
-  // const throttling = () => {
-  //   //функция для искусственной задержки отображения компонента
-  //   const minLoadingTime = 300;
-  //   isLoading.value = true;
-  //   const loadData = new Promise((resolve) => {
-  //     setTimeout(() => {
-  //       resolve();
-  //     }, 300);
-  //   });
-  //   Promise.all([
-  //     loadData,
-  //     new Promise((resolve) => setTimeout(resolve, minLoadingTime)),
-  //   ]).then(() => {
-  //     isLoading.value = false;
-  //   });
-  // };
   const throttling = (minLoadingTime = 300) => {
     isLoading.value = true;
     return new Promise((resolve) => {

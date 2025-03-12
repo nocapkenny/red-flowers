@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, computed, watch } from "vue";
+import { onMounted, computed, watch, watchEffect } from "vue";
 import { usePlantsStore } from "@/stores/plantsStore";
 import { ref } from "vue";
 import Pagination from "../Pagination/Pagination.vue";
@@ -123,6 +123,7 @@ const totalGenusPages = computed(() => {
 const totalPotsPages = computed(() => {
   return Math.ceil(totalPotsCount.value / visiblePotsCount.value);
 });
+const isDisabled = computed(() => window.innerWidth <= 993);
 
 const changeGenusPage = (page) => {
   currentGenusPage.value = page;
@@ -166,6 +167,12 @@ watch(searchQuery, (newValue) => {
   console.log(newValue);
   updateQuery();
 });
+// watchEffect(async () => {
+//     if (window.innerWidth <= 993) {
+//       isTableMode.value = false;
+//       updateQuery()
+//     }
+// });
 
 onMounted(async () => {
   await Promise.all([
@@ -188,7 +195,11 @@ onMounted(async () => {
     searchQuery.value = route.query.search;
   }
   if (route.query.tableMode) {
-    isTableMode.value = route.query.tableMode === "true";
+    if(window.innerWidth <= 993){
+      isTableMode.value = route.query.tableMode === "false";
+    } else{
+      isTableMode.value = route.query.tableMode === "true";
+    }
   }
   if (route.query.page) {
     currentPage.value = Number(route.query.page);
@@ -207,7 +218,9 @@ onMounted(async () => {
         type="checkbox"
         role="switch"
         :checked="isTableMode"
+        :disabled="isDisabled"
         @change="toggleSwitch"
+        
         id="flexSwitchCheckChecked"
       />
       <label
