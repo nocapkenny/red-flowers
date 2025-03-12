@@ -4,14 +4,21 @@ import { usePlantsStore } from "@/stores/plantsStore";
 import { ref } from "vue";
 import Pagination from "../Pagination/Pagination.vue";
 import Breadcrumbs from "../Breadcrumbs/Breadcrumbs.vue";
+import Arrow from "../../assets/images/arrow-down.svg";
 import { storeToRefs } from "pinia";
 import { useRouter, useRoute } from "vue-router";
 const router = useRouter();
 const route = useRoute();
 
 const plantsStore = usePlantsStore();
-const { currentCategory, currentGenus, isTableMode, currentPot, searchQuery, currentPage } =
-  storeToRefs(plantsStore);
+const {
+  currentCategory,
+  currentGenus,
+  isTableMode,
+  currentPot,
+  searchQuery,
+  currentPage,
+} = storeToRefs(plantsStore);
 const visibleGenusesCount = ref(12);
 const visiblePotsCount = ref(30);
 const currentGenusPage = ref(1);
@@ -43,7 +50,7 @@ const toggleCategory = (id) => {
     visibleGenusesCount.value = 12;
     currentGenus.value = "";
     currentPot.value = "";
-    currentPage.value = 1
+    currentPage.value = 1;
     searchQuery.value = "";
     currentGenusPage.value = 1;
   }
@@ -57,7 +64,7 @@ const toggleGenus = (id) => {
     currentGenus.value = id;
     currentPot.value = "";
     searchQuery.value = "";
-    currentPage.value = 1
+    currentPage.value = 1;
   }
   plantsStore.getPlants();
   updateQuery();
@@ -68,7 +75,7 @@ const togglePot = (size) => {
   } else {
     currentPot.value = size;
     searchQuery.value = "";
-    currentPage.value = 1
+    currentPage.value = 1;
   }
   plantsStore.getPlants();
   updateQuery();
@@ -157,7 +164,7 @@ const resetFilters = () => {
 // });
 
 watch(searchQuery, (newValue) => {
-  console.log(newValue)
+  console.log(newValue);
   updateQuery();
 });
 
@@ -184,18 +191,17 @@ onMounted(async () => {
   if (route.query.tableMode) {
     isTableMode.value = route.query.tableMode === "true";
   }
-  if (route.query.page){
-    currentPage.value = Number(route.query.page)
+  if (route.query.page) {
+    currentPage.value = Number(route.query.page);
   }
 
   await plantsStore.getPlants();
 });
-
 </script>
 
 <template>
   <div class="filter">
-    <Breadcrumbs/>
+    <Breadcrumbs />
     <p class="filter__title title">Фильтры</p>
     <div class="form-check form-switch">
       <input
@@ -222,16 +228,29 @@ onMounted(async () => {
       :key="category.id"
     >
       <div class="filter__box">
-        <h3
-          :class="
-            currentCategory === category.id
-              ? 'filter__category--active filter__category'
-              : 'filter__category'
-          "
+        <div
+          class="filter__box-categories"
           @click="toggleCategory(category.id)"
         >
-          {{ category.name }}
-        </h3>
+          <button class="filter__box-btn">
+            <Arrow
+              :class="
+                currentCategory === category.id
+                  ? 'filter__box-arrow filter__box-arrow--active'
+                  : 'filter__box-arrow'
+              "
+            />
+          </button>
+          <h3
+            :class="
+              currentCategory === category.id
+                ? 'filter__category--active filter__category'
+                : 'filter__category'
+            "
+          >
+            {{ category.name }}
+          </h3>
+        </div>
         <div class="filter__genus-box" v-if="currentCategory === category.id">
           <div
             class="filter__genuses"

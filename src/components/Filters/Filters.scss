@@ -11,7 +11,7 @@
   flex-direction: column;
   margin-top: 20px;
   @media (min-width: 770px) {
-    min-width: 340px;
+    min-width: 370px;
     margin-right: 20px;
     padding: 30px 20px;
   }
@@ -26,7 +26,7 @@
       margin-bottom: 20px;
     }
   }
-  &__pots{
+  &__pots {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
   }
@@ -37,8 +37,34 @@
     }
   }
   &__box {
-    border-bottom: 2px solid $black;
+    margin-bottom: 5px;
   }
+  &__box-categories {
+    display: flex;
+    align-items: center;
+  }
+  &__box-btn {
+    background-color: transparent;
+    border: none;
+    margin-right: 5px;
+  }
+  &__box-arrow {
+    transition: all ease 0.5s;
+    width: 15px;
+    height: 15px;
+    @media (min-width: 767px) {
+      width: 20px;
+      height: 20px;
+    }
+  }
+  &__box-arrow:hover {
+    fill: $red;
+  }
+  &__box-arrow--active {
+    fill: $red;
+    transform: rotate(180deg);
+  }
+
   &__category,
   .filter__genus {
     cursor: pointer !important;
@@ -46,7 +72,6 @@
     margin: 0;
   }
   &__btn {
-    
     font-size: 12px;
     @media (min-width: 767px) {
       font-size: 14px;
@@ -62,6 +87,7 @@
   }
   &__genuses {
     margin-left: 10px;
+    transition: all ease 0.3s;
     @media (min-width: 767px) {
       margin-left: 30px;
     }
@@ -99,7 +125,7 @@
 .form-check-label--active {
   color: $red;
 }
-.form-check-label{
+.form-check-label {
   font-size: 14px;
   @media (min-width: 767px) {
     font-size: 20px;

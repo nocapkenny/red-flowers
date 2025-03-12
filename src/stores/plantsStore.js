@@ -17,6 +17,7 @@ export const usePlantsStore = defineStore("plantsStore", () => {
   const currentPot = ref();
   const currentPage = ref(1);
   const totalPages = ref(0);
+  const isMounted = ref(false);
 
   //getters
   const searchPlants = computed(() => {
@@ -64,20 +65,28 @@ export const usePlantsStore = defineStore("plantsStore", () => {
   });
 
   //actions
-  const throttling = () => {
-    //функция для искусственной задержки отображения компонента
-    const minLoadingTime = 500;
+  // const throttling = () => {
+  //   //функция для искусственной задержки отображения компонента
+  //   const minLoadingTime = 300;
+  //   isLoading.value = true;
+  //   const loadData = new Promise((resolve) => {
+  //     setTimeout(() => {
+  //       resolve();
+  //     }, 300);
+  //   });
+  //   Promise.all([
+  //     loadData,
+  //     new Promise((resolve) => setTimeout(resolve, minLoadingTime)),
+  //   ]).then(() => {
+  //     isLoading.value = false;
+  //   });
+  // };
+  const throttling = (minLoadingTime = 300) => {
     isLoading.value = true;
-    const loadData = new Promise((resolve) => {
+    return new Promise((resolve) => {
       setTimeout(() => {
         resolve();
-      }, 600);
-    });
-    Promise.all([
-      loadData,
-      new Promise((resolve) => setTimeout(resolve, minLoadingTime)),
-    ]).then(() => {
-      isLoading.value = false;
+      }, minLoadingTime);
     });
   };
 
@@ -137,7 +146,8 @@ export const usePlantsStore = defineStore("plantsStore", () => {
   };
   const getPlants = async () => {
     try {
-      let allPlants = []
+      isLoading.value = true
+      let allPlants = [];
       let uniquePlants = new Set();
       const filter = {
         category_id: currentCategory.value || "",
@@ -165,12 +175,17 @@ export const usePlantsStore = defineStore("plantsStore", () => {
         }
       }
 
-      totalPages.value = data.totalPages
+      totalPages.value = data.totalPages;
       plants.value = allPlants;
     } catch (err) {
       console.error(err);
     } finally {
-      throttling();
+      await throttling(300).then(() => {
+        isLoading.value = false;
+      });
+      if (!isMounted.value) {
+        isMounted.value = true;
+      }
     }
   };
   const getPlantById = async (id) => {
@@ -205,6 +220,7 @@ export const usePlantsStore = defineStore("plantsStore", () => {
     plant,
     getPlantById,
     isLoading,
+    isMounted,
     currentCategory,
     currentGenus,
     searchPlants,

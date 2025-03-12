@@ -22,6 +22,8 @@ const {
   totalPages,
   currentPot,
   isTableMode,
+  isMounted,
+  isLoading
 } = storeToRefs(plantsStore);
 
 const updateQuery = () => {
@@ -114,7 +116,7 @@ watch(
   <div class="container text-center">
     <div class="row row-cols-1 row-cols-md-4" v-auto-animate>
       <Skeleton
-        v-if="plantsStore.isLoading && !plantsStore.isTableMode"
+        v-if="isLoading && !isTableMode && !isMounted"
         v-for="i in 4"
         :key="i"
       />
